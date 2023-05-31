@@ -112,8 +112,12 @@ void parseLine(const string &s, vector<string> &names, vector<string> &netIDs,
     string content = look;              
     addData(content, c, names, netIDs, idNums, grades);
 
+    // TODO
+    //
     // TODO: What happens if we do not have a full line of data?
     // For example: Tom S,ts    
+    //
+    // TODO
 }
 
 
@@ -153,6 +157,18 @@ void addData(const string &content, int caseNum,
     }    
 }
 
+/// @brief Search for a specific ID number, and return the index or -1
+/// @param names the data vector containing names
+/// @param netIDs the data vector containing netIDs
+/// @param idNums the data vector containing ID numbers
+/// @param grades the data vector containing names
+int searchIDs(int searchFor, const vector<int> &idNums)
+{
+    // TODO
+
+    return -1;
+}
+
 
 /// @brief Print out a nicely formatted roster with all the student information
 /// @param names the data vector containing names
@@ -162,6 +178,8 @@ void addData(const string &content, int caseNum,
 void printRoster(const vector<string> &names, const vector<string> &netIDs, 
     const vector<int> &idNums, const vector<char> &grades)
 {
+
+    // TODO
 
 }
 
