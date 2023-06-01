@@ -14,13 +14,81 @@
 #include <algorithm>    // for sort()
 #include <sstream>      // for stringstream conversions
 #include <iomanip>      // used for console output formatting
+#include <vector>
+#include "student.h"
 
 using namespace std;
 
+// struct Student
+// {
+//     string name;
+//     string netID;
+//     int idNum;
+//     char grade;
+// };
+
+class Student
+{
+    private:
+        string name;
+        string netID;
+        int idNum;
+        char grade;       
+
+    public:
+        string getName() const 
+        {
+            return name;
+        }
+        string getNetID() const 
+        {
+            return netID;
+        }
+        int getIDNum() const 
+        {
+            return idNum;
+        }
+        char getGrade() const;
+        void setGrade(char);
+
+
+        void setIDNum(int n)  
+        {
+            idNum = n;
+        }
+        void setNetID(string n)  
+        {
+            netID = n;
+        }
+        void setName(string n)  
+        {
+            name = n;
+        }
+};
+char Student::getGrade() const 
+{
+    return grade;
+}
+void Student::setGrade(char g) 
+{
+    grade = g;
+}
+
 int to_int(const string &);
-void parseLine(const string &s, vector<string> &names, vector<string> &netIDs, 
-    vector<int> &idNums, vector<char> &grades);
+// void parseLine(const string &s, vector<string> &names, vector<string> &netIDs, 
+    // vector<int> &idNums, vector<char> &grades);
+void parseLine(const string &s, vector<Student> &data);
 void printRosterNames(const vector<string> &);
+// void addData(const string &content, int caseNum,
+//     vector<string> &names, vector<string> &netIDs, 
+//     vector<int> &idNums, vector<char> &grades);
+int searchIDs(int, const vector<int> &);
+// void printRoster(const vector<string> &names, const vector<string> &netIDs, 
+    // const vector<int> &idNums, const vector<char> &grades);
+void printRoster(const vector<Student> &data);
+
+void addData(const string &content, int caseNum,
+    vector<Student> &data);
 
 // Simple function to print out all the vectors just to verify
 // that the data was entered into each of the vectors.
@@ -28,10 +96,20 @@ void sanityPrint(const vector<string> &names, const vector<string> &netIDs,
     const vector<int> &idNums, const vector<char> &grades);
 
 
+
+
+
+
 int main()
 {
     // the input data file name
     string filename = "data.txt";
+    // Student blank;
+    // cout << blank.name << endl;
+    // cout << blank.netID << endl;
+    // cout << blank.idNum << endl;
+    // cout << blank.grade << endl;
+    vector<Student> data;
 
     // Our parallel arrays serve as our data storage implementation
     // such that each index represents an individual, and using
@@ -56,22 +134,32 @@ int main()
         // We do not want to parse the line when it is empty
         if(!inF.fail() && !s.empty())
         {
-            parseLine(s, names, netIDs, idNums, grades);
+            // parseLine(s, names, netIDs, idNums, grades);
+            parseLine(s, data);
         }
     }
     inF.close();
 
     // Simple sanity check to verify that all the vectors acquired all the 
     // data from within the file.
-    cout << "--- SANITY CHECK: START PRINTING OF VECTORS ---"
-        << endl;
-    sanityPrint(names, netIDs, idNums, grades);
-    cout << "--- SANITY CHECK: END PRINTING OF VECTORS ---"
-        << endl << endl;
+    // cout << "--- SANITY CHECK: START PRINTING OF VECTORS ---"
+    //     << endl;
+    // sanityPrint(names, netIDs, idNums, grades);
+    // cout << "--- SANITY CHECK: END PRINTING OF VECTORS ---"
+    //     << endl << endl;
 
     // Print the names in alphabetical order
     printRosterNames(names);
 
+    // int userNum;
+    // cout << "Enter an ID: ";
+    // cin >> userNum;
+    // cout << endl;
+    // cout << "Searching... " << searchIDs(userNum, idNums) << endl;
+
+    // printRoster(names, netIDs, idNums, grades);
+    printRoster(data);
+    
     return 0;
 }
 
@@ -82,8 +170,9 @@ int main()
 /// @param netIDs the data vector containing netIDs
 /// @param idNums the data vector containing ID numbers
 /// @param grades the data vector containing names
-void parseLine(const string &s, vector<string> &names, vector<string> &netIDs, 
-    vector<int> &idNums, vector<char> &grades)
+// void parseLine(const string &s, vector<string> &names, vector<string> &netIDs, 
+    // vector<int> &idNums, vector<char> &grades)
+void parseLine(const string &s, vector<Student> &data)
 {
     // the first piece of data will always go in case 0, names vector
     int c = 0;
@@ -99,7 +188,8 @@ void parseLine(const string &s, vector<string> &names, vector<string> &netIDs,
         string content = look.substr(0,look.find(","));              
 
         // add the data to specific vector container
-        addData(content, c, names, netIDs, idNums, grades);
+        // addData(content, c, names, netIDs, idNums, grades);
+        addData(content, c, data);
 
         // shorten the string taking substring of everything after the comma
         look = look.substr(look.find(",") + 1);
@@ -110,14 +200,25 @@ void parseLine(const string &s, vector<string> &names, vector<string> &netIDs,
 
     // the last piece of content on the line doesn't have a comma
     string content = look;              
-    addData(content, c, names, netIDs, idNums, grades);
+    // addData(content, c, names, netIDs, idNums, grades);
+    addData(content, c, data);
 
-    // TODO
-    //
-    // TODO: What happens if we do not have a full line of data?
-    // For example: Tom S,ts    
-    //
-    // TODO
+    // handle partial line of data
+    // if (c == 0)
+    // {
+    //     addData("", 1, names, netIDs, idNums, grades);   
+    //     addData("0", 2, names, netIDs, idNums, grades);   
+    //     addData("-", 3, names, netIDs, idNums, grades);   
+    // }
+    // else if (c == 1)
+    // {   
+    //     addData("0", 2, names, netIDs, idNums, grades);   
+    //     addData("-", 3, names, netIDs, idNums, grades);   
+    // }
+    // else if (c == 2)
+    // {     
+    //     addData("-", 3, names, netIDs, idNums, grades);   
+    // }
 }
 
 
@@ -157,6 +258,36 @@ void addData(const string &content, int caseNum,
     }    
 }
 
+void addData(const string &content, int caseNum, 
+    vector<Student> &data)
+{
+    Student blank;
+    // create a new entry in a specific data vector
+    switch (caseNum)
+    {
+        case 0:
+            data.push_back(blank);
+            data.back().setName(content);
+            break;
+
+        case 1:                
+            data.back().setNetID(content);
+            break;
+
+        case 2:
+            data.back().setIDNum(to_int(content));
+            break;
+
+        case 3:
+            data.back().setGrade(content.at(0));
+            break;
+
+        default:
+            cout << "uh oh, shouldn't be here" << endl;
+            break;
+    }    
+}
+
 /// @brief Search for a specific ID number, and return the index or -1
 /// @param names the data vector containing names
 /// @param netIDs the data vector containing netIDs
@@ -164,7 +295,14 @@ void addData(const string &content, int caseNum,
 /// @param grades the data vector containing names
 int searchIDs(int searchFor, const vector<int> &idNums)
 {
-    // TODO
+    //unsorted so we use linear search
+    for(size_t i = 0; i < idNums.size(); ++i)
+    {
+        if (idNums.at(i) == searchFor)
+        {
+            return i;
+        }
+    }
 
     return -1;
 }
@@ -178,11 +316,47 @@ int searchIDs(int searchFor, const vector<int> &idNums)
 void printRoster(const vector<string> &names, const vector<string> &netIDs, 
     const vector<int> &idNums, const vector<char> &grades)
 {
+    cout << left;
+    cout << setw(16) << "Name";
+    cout << setw(12) << "netID";
+    cout << setw(12) << "ID Number";
+    cout << setw(10) << "Grades" << endl;
+    cout << setfill('-') << setw(50) << '-' << endl;
+    cout << setfill(' ');
 
-    // TODO
-
+    for(size_t i=0; i<names.size(); ++i)
+    {
+        cout << setw(16) << names.at(i);
+        cout << setw(12) << netIDs.at(i);
+        cout << setw(12) << idNums.at(i);
+        cout << setw(10) << grades.at(i) << endl;
+    }
 }
 
+
+/// @brief Print out a nicely formatted roster with all the student information
+/// @param names the data vector containing names
+/// @param netIDs the data vector containing netIDs
+/// @param idNums the data vector containing ID numbers
+/// @param grades the data vector containing names
+void printRoster(const vector<Student> &data)
+{
+    cout << left;
+    cout << setw(16) << "Name";
+    cout << setw(12) << "netID";
+    cout << setw(12) << "ID Number";
+    cout << setw(10) << "Grades" << endl;
+    cout << setfill('-') << setw(50) << '-' << endl;
+    cout << setfill(' ');
+
+    for(size_t i=0; i<data.size(); ++i)
+    {
+        cout << setw(16) << data.at(i).getName();
+        cout << setw(12) << data.at(i).getNetID();
+        cout << setw(12) << data.at(i).getIDNum();
+        cout << setw(10) << data.at(i).getGrade() << endl;
+    }
+}
 
 /// @brief print out all the names in alphabetical order
 /// @param names the data vector containing all the names
