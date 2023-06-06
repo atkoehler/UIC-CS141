@@ -1,6 +1,6 @@
 /// @file plant.h
 /// @author Adam T Koehler, PhD
-/// @date May 31, 2023
+/// @date June 1, 2023
 /// @brief Class code and lecture notes from the live session split to 
 ///         header and implementation file.
 
