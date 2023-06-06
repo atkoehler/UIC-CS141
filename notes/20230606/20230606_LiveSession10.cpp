@@ -18,13 +18,20 @@ using namespace std;
 
 int main()
 {
+    // Let's make some plants!
+    // Using the default and parameterized constructors
     Plant p,m,o;
     string nm = "tree";
-    Plant* q = new Plant(nm);
     Plant n(nm);
+    
+    // We can create poniters to plants too!
+    Plant* q = new Plant(nm);
     Plant* r;
-    r = &m;
+    r = &m; // get the address of (&) Plant m
 
+
+    // Here we set up another scope using the curly braces to force
+    // the Plant destructor to be called.
     {
         // copy constructor
         p.setAge(10);
@@ -69,18 +76,27 @@ int main()
     }    
     cout << endl;
        
+    
     cout << "Using Plants p, q, r:" << endl;
+
+    // Use the Plant objects and Plant pointers
+    // the objects can use the dot (.) operator 
     cout << "p: ";
     p.bloom();
 
+
+    // but the pointers require the arrow (->) operator
     cout << "q: ";
     q->bloom(); 
     
+    // the -> is just a C++ operator to do two operations   
+    // which dereferences the pointer and then uses the dot operator
     cout << "q: ";
     (*q).bloom();
 
     cout << "r: ";
     r->bloom();
+
 
     // Creating an object of the derived class
     cout << endl;
@@ -92,7 +108,9 @@ int main()
     cout << "tree age: ";
     cout << mine.getAge() << endl << endl;
 
-    
+
+    // Here we set up another scope using the curly braces to force
+    // the Plant destructor to be called.
     {
         cout << "Using copy constructor with derived class to create"
             << endl << "Plant y from Tree z" << endl;
