@@ -8,6 +8,13 @@
 ///         file even though most class implementations are split across
 ///         files (a .h header and a .cpp implementation file).
 
+// Copyright Notice
+// This document is protected by U.S. copyright law. Reproduction and 
+// distribution of this work, including posting or sharing through any medium, 
+// is explicitly prohibited by law, and also violates UIC's Student 
+// Disciplinary Policy (A2-c. Unauthorized Collaboration; and A2-e3. 
+// Participation in Academically Dishonest Activities: Material Distribution). 
+
 
 #include <iostream>
 #include <fstream>
