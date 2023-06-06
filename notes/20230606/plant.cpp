@@ -1,8 +1,9 @@
 /// @file plant.cpp
 /// @author Adam T Koehler, PhD
 /// @date June 6, 2023
-/// @brief Class code and lecture notes from the live session split to 
-///         header and implementation file.
+/// @brief Class code and lecture notes from the live session. Building on
+///        June 1st notes and implementation to fully build a class with 
+///        recursion examples.
 
 // Copyright Notice
 // This document is protected by U.S. copyright law. Reproduction and 
@@ -26,6 +27,12 @@ Plant::Plant()
     age = 0;
     indoor = false;
     height = 0;
+
+
+    for(int i=0; i < 10; ++i)
+    {
+        growthRate[i] = 0;
+    }
 }
 
 Plant::Plant(const string &species)
@@ -35,6 +42,12 @@ Plant::Plant(const string &species)
     age = 100;
     indoor = false;
     height = 0;
+
+
+    for(int i=0; i < 10; ++i)
+    {
+        growthRate[i] = i;
+    }
 }
 
 // We could define a constructor with a default parameter and then we do not
@@ -46,6 +59,51 @@ Plant::Plant(const string &species)
 //     age = 0;
 //     indoor = false;
 // }
+
+Plant::Plant(const Plant &other)
+{
+    cout << "copy constructor" << endl;
+    this->species = other.getSpecies();
+    sunlightHours = other.sunlightHours;
+    age = other.age;
+    indoor = other.indoor;
+    height = other.height;
+
+    // shallow copy - bad
+    // growthRate = other.growthRate'
+
+    // deep copy - good
+    for(int i=0; i < 10; ++i)
+    {
+        growthRate[i] = other.growthRate[i];
+    }
+}
+
+Plant::~Plant()
+{
+    cout << "destroyed" << endl;
+}
+
+Plant& Plant::operator=(const Plant &other)
+{
+    cout << "assignment op" << endl;
+    this->species = other.getSpecies();
+    sunlightHours = other.sunlightHours;
+    age = other.age;
+    indoor = other.indoor;
+    height = other.height;
+
+    // shallow copy - bad
+    // growthRate = other.growthRate'
+
+    // deep copy - good
+    for(int i=0; i < 10; ++i)
+    {
+        growthRate[i] = other.growthRate[i];
+    }
+
+    return *this;
+}
 
 
 // accessors
@@ -92,16 +150,22 @@ void Plant::setSunlightHours(int hr)
     sunlightHours = hr;
 }
 
+void Plant::setAge(int a)
+{
+    age = a;
+}
+
 
 void Plant::bloom() const
 { 
     cout << "Growing up at age: " << age << endl; 
 }
 
-
 // Tree Class Definitions
 void Tree::display() const
 {
+    cout << "I'm a tree!" << endl;
+
     // Height is protected so it can be accessed directly as 
     // we are in the Tree class which is derived from Plant
     cout << "Height: " << height << endl;

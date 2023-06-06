@@ -21,18 +21,31 @@ class Plant
 {
     private: 
         string species;
-        // int height; // moved to protected to demo inheritance
         int sunlightHours;
         int age;
         bool indoor;
+    
+    // We made public (violating good object design) to gain quick
+    // access during examples. Normally we would make accessor or 
+    // mutator for this array.
+    public:
+        int growthRate[10];
 
+    // Protected data members are accessible in this class and all
+    // derived classes.
     protected:
         int height;
 
     public: 
         Plant();
-        Plant(const string &);
+        Plant(const string &); 
         
+                                            // Rule of Three:
+        Plant(const Plant &);               // copy constructor
+        Plant& operator=(const Plant &);    // assignment operator
+        virtual ~Plant();                   // destructor
+
+
         void bloom() const;
 
         // accessors and mutators
@@ -46,6 +59,7 @@ class Plant
         void setSpecies(string species);
         void setHeight(int h);
         void setSunlightHours(int hr);
+        void setAge(int);
 };
 
 
