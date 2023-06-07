@@ -20,7 +20,7 @@ using namespace std;
 class Plant
 {
     private: 
-        string species;
+        string type;
         int sunlightHours;
         int age;
         bool indoor;
@@ -52,11 +52,11 @@ class Plant
         int getAge() const;
         int getHeight() const;
         int getSunlightHours() const;
-        string getSpecies() const;
+        string getType() const;
 
         bool isIndoor() const;
 
-        void setSpecies(string species);
+        void setType(string type);
         void setHeight(int h);
         void setSunlightHours(int hr);
         void setAge(int);

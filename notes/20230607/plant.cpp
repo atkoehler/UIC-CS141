@@ -24,7 +24,7 @@ using namespace std;
 ///        the object's data members to some default values
 Plant::Plant()
 {
-    species = "Basic Plant";
+    type = "Basic Plant";
     sunlightHours = 24;
     age = 0;
     indoor = false;
@@ -38,11 +38,11 @@ Plant::Plant()
 }
 
 /// @brief this parameterized constructor allows us to craft a plant and 
-///        specify the species by sending a string to the constructor
-/// @param species the value to set the private data member species to
-Plant::Plant(const string &species)
+///        specify the type by sending a string to the constructor
+/// @param type the value to set the private data member type to
+Plant::Plant(const string &type)
 {
-    this->species = species;
+    this->type = type;
     sunlightHours = 17;
     age = 100;
     indoor = false;
@@ -71,7 +71,7 @@ Plant::Plant(const Plant &other)
 
     // We are in the Plant class so we can access all the data members
     // directly versus needing to use the accessor member functions.
-    this->species = other.getSpecies();
+    this->type = other.getType();
 
     // shallow copy => bad
     // If we have any data members that C++ does not know how to natively
@@ -94,7 +94,7 @@ Plant::Plant(const Plant &other)
 ///         goes out of scope. We cannot invoke this function on our own.
 Plant::~Plant()
 {
-    cout << getSpecies() << ' ';
+    cout << getType() << ' ';
     cout << "Plant destroyed!" << endl;
 }
 
@@ -105,7 +105,7 @@ Plant::~Plant()
 Plant& Plant::operator=(const Plant &other)
 {
     cout << "assignment op" << endl;
-    this->species = other.getSpecies();
+    this->type = other.getType();
     sunlightHours = other.sunlightHours;
     age = other.age;
     indoor = other.indoor;
@@ -143,9 +143,9 @@ int Plant::getSunlightHours() const
     return sunlightHours;
 }
 
-string Plant::getSpecies() const
+string Plant::getType() const
 {
-    return species;
+    return type;
 }
 
 // predicate functions are often named differently to 
@@ -158,9 +158,9 @@ bool Plant::isIndoor() const
 }
 
 // mutators allow us to set the data members of a class
-void Plant::setSpecies(string species)
+void Plant::setType(string type)
 {
-    this->species = species;
+    this->type = type;
 }
 
 void Plant::setHeight(int h)
@@ -189,26 +189,26 @@ void Plant::bloom() const
 /// @brief display some details of the Plant
 void Plant::display() const
 {
-    cout << "I'm a plant!" << endl;
-    cout << "Height: " << height << endl;
-    cout << "Age: " << age << endl;
+    cout << "I'm a plant! ";
+    cout << "Height: " << height;
+    cout << ", Age: " << age << endl;
 }
 
 // Tree Class Definitions
 /// @brief display some details of the Tree
 void Tree::display() const
 {
-    cout << "I'm a tree!" << endl;
+    cout << "I'm a tree! ";
 
     // Height is protected so it can be accessed directly as 
     // we are in the Tree class which is derived from Plant
-    cout << "Height: " << height << endl;
+    cout << "Height: " << height;
     
     // Age is private so it cannot be accessed directly as 
     // we are in the Tree class not the Plant class.
     // So we use the public accessor to get the age.
     // cout << "Age: " << age << endl;
-    cout << "Age: " << Plant::getAge() << endl;
+    cout << ", Age: " << Plant::getAge() << endl;
 }
 
 /// @brief the destructor releases any dynamically allocated memory
@@ -216,6 +216,6 @@ void Tree::display() const
 ///         goes out of scope. We cannot invoke this function on our own.
 Tree::~Tree()
 {
-    cout << getSpecies() << ' ';
+    cout << getType() << ' ';
     cout << "Tree destroyed!" << endl;
 }
