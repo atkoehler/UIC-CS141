@@ -16,7 +16,6 @@
 # Disciplinary Policy (A2-c. Unauthorized Collaboration; and A2-e3. 
 # Participation in Academically Dishonest Activities: Material Distribution).
 
-
 build:
 	rm -f program.out
 	g++ -std=c++20 -Wall main.cpp plant.cpp garden.cpp -o program.out
