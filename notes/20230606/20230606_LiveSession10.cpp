@@ -120,7 +120,7 @@ int main()
         Tree z; 
         Plant y = z;
 
-        // y will get destroyed when it goes out of scope after the
+        // y and z will get destroyed when it goes out of scope after the
         // following curly brace is hit.
         cout << "Destroying Plant y and Tree z, z inherits y's destructor:" 
             << endl;
