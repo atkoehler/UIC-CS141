@@ -18,7 +18,7 @@
 
 build:
 	rm -f program.out
-	g++ -std=c++20 -Wall main.cpp plant.cpp garden.cpp -o program.out
+	g++ -std=c++20 -Wall 20230607_LiveSession11_2.cpp plant.cpp garden.cpp -o program.out
 
 run:
 	./program.out
