@@ -1,9 +1,9 @@
 /// @file plant.h
 /// @author Adam T Koehler, PhD
-/// @date June 6, 2023
+/// @date June 7, 2023
 /// @brief Class code and lecture notes from the live session. Building on
-///        June 1st notes and implementation to fully build a class with 
-///        recursion examples.
+///        June 6th notes and implementation to demonstrate polymorphism
+///        and virtual keyword using display() and destructors.
 
 // Copyright Notice
 // This document is protected by U.S. copyright law. Reproduction and 
@@ -21,23 +21,30 @@ class Plant
 {
     private: 
         string species;
-        // int height; // moved to protected to demo inheritance
         int sunlightHours;
         int age;
         bool indoor;
     
+    // We made public (violating good object design) to gain quick
+    // access during examples. Normally we would make accessor or 
+    // mutator for this array.
     public:
         int growthRate[10];
 
+    // Protected data members are accessible in this class and all
+    // derived classes.
     protected:
         int height;
 
     public: 
         Plant();
-        Plant(const string &);              // Rule of Three:
+        Plant(const string &); 
+        
+                                            // Rule of Three:
         Plant(const Plant &);               // copy constructor
         Plant& operator=(const Plant &);    // assignment operator
         virtual ~Plant();                   // destructor
+
 
         void bloom() const;
 
@@ -52,8 +59,10 @@ class Plant
         void setSpecies(string species);
         void setHeight(int h);
         void setSunlightHours(int hr);
+        void setAge(int);
 
         virtual void display() const;
+        // void display() const;
 };
 
 
@@ -62,7 +71,8 @@ class Plant
 class Tree : public Plant
 {
     public:
-        virtual void display() const;
+        void display() const;
+        virtual ~Tree();
 };
 
 // We can define additional classes
