@@ -2,8 +2,8 @@
 /// @author Adam T Koehler, PhD
 /// @date June 7, 2023
 /// @brief Class code and lecture notes from the live session. Building on
-///        June 6th Plant class to create a Garden which is a basic linked 
-///        list implementation
+///        June 6th Plant class to create a Garden class which is a basic 
+///        linked list implementation
 
 // Copyright Notice
 // This document is protected by U.S. copyright law. Reproduction and 
