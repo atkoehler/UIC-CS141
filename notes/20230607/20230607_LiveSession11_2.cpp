@@ -20,22 +20,48 @@ using namespace std;
 
 int main()
 {
-    Garden g;
-
     Plant f("Rose Bush");
-    
     Tree t;
-    t.setType("Spruce");
 
-    g.drawGarden();
+    {
+        Garden g;
+        t.setType("Spruce");
 
-    cout << "adding to front" << endl;
-    g.addFrontRow(f);
-    g.drawGarden();
+        g.drawGarden();
 
-    g.removeFirstRow();
-    g.addFrontRow(t);
-    g.drawGarden();
+        cout << "Adding a " << f.getType() << " to front" << endl;
+        g.addFrontRow(f);
+    
+        cout << endl;
+        cout << "Drawing the Garden" << endl;
+        g.drawGarden();
 
+        cout << endl;
+        cout << "Removing the first Row of the Garden" << endl;
+        g.removeFirstRow();
+
+        
+        cout << endl;
+        cout << "Drawing the Garden" << endl;
+        g.drawGarden();
+
+        cout << endl;
+        cout << "Adding a " << t.getType() << " to front" << endl;
+        g.addFrontRow(t);
+        
+        cout << endl;
+        cout << "Adding a " << f.getType() << " to front" << endl;
+        g.addFrontRow(f);
+        
+        cout << endl;
+        cout << "Drawing the Garden" << endl;
+        g.drawGarden();
+
+        cout << endl;
+        cout << "Garden destructor being called:" << endl;
+    }
+
+    cout << endl;
+    cout << "Destructor for f and t being called:" << endl;
     return 0;
 }

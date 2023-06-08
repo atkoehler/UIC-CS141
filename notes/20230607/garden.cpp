@@ -71,44 +71,53 @@ void Garden::addFrontRow(const Plant &x)
 
     // Row is a simple struct and doesn't have constructors, so we
     // set the value of the struct's Plant to x after creation.
+    // This will use the Plant's assignment operator (operator=)
     newRow->p = x;
 
     // add 1 as we are creating a new row
     numRows++;
 
+    // The next pointer of the new row will always be the node
+    // currently pointed to by firstRow even if firstRow is a nullptr
+    newRow->nextRow = firstRow;
+    firstRow = newRow;
+
     // is this the first node in the list?
+    // When more than one item in the list
+    // We don't touch the last row pointer
     if (numRows == 0)
     {
-        firstRow = newRow;
         lastRow = newRow;  
-        newRow->nextRow = nullptr; 
-    }
-    else 
-    {
-        newRow->nextRow = firstRow;
-        firstRow = newRow;
     }
 }
 
+/// @brief remove the first item from the linked list Garden
 void Garden::removeFirstRow()
 {
+    // nothing to do when there isn't anything in the Garden
     if (numRows == 0)
     {
         return;
     }
 
+    // save the pointer to the front before updating
+    // so we don't lose that memory address that we need to delete
     Row* del = firstRow;
     firstRow = firstRow->nextRow;
     delete del;
+    
+    // remember to update the size of the linked list
     numRows--;
 }
 
+/// @brief display the size of the Garden and information for each 
+///         Row of the Garden
 void Garden::drawGarden() const
 {
-    Row* temp = firstRow;
+    Row* cur = firstRow;
     int counter = 1;
 
-    // output the size of the garden
+    // Output the size of the garden
     cout << "The garden has " << numRows << " row";
     if (numRows != 1)
     {
@@ -116,14 +125,20 @@ void Garden::drawGarden() const
     } 
     cout << "." << endl;
 
-    // output each plant row in the garden
-    while (temp != nullptr)
+    // Output each Plant for every Row in the garden
+    while (cur != nullptr)
     {
+        // Output the row number and then increment the counter
         cout << "Row: " << counter++ << endl;
-        Plant curPlant = temp->p;
-        curPlant.display();
+
+        // Plant curPlant = cur->p; // this will create a copy
+        // curPlant.display();
+        
+        // we can avoid creating a copy by using directly
+        cur->p.display();
         cout << endl;
 
-        temp = temp->nextRow;
+        // move on to the next Row in the Garden
+        cur = cur->nextRow;
     }
 }
