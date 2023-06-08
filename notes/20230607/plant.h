@@ -43,7 +43,7 @@ class Plant
                                             // Rule of Three:
         Plant(const Plant &);               // copy constructor
         Plant& operator=(const Plant &);    // assignment operator
-        virtual ~Plant();                   // destructor
+        ~Plant();                   // destructor
 
 
         void bloom() const;
@@ -71,7 +71,7 @@ class Plant
 class Tree : public Plant
 {
     public:
-        void display() const;
+        virtual void display() const;
         virtual ~Tree();
 };
 

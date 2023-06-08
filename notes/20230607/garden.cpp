@@ -17,35 +17,90 @@
 
 using namespace std;
 
-
+/// @brief The default constructor sets the default values 
+///         for an empty linked list
 Garden::Garden()
 {
     numRows = 0;
+
+    // nullptr has grown in use since typed introduction in C++11
+    // where it became defined as a pointer data type.
+    // This is in opposition to NULL and 0 which were both used in 
+    // proliferation prior to C++11 but both are integers. 
+    // While all can be valid and converted to the 0x000 address,
+    // the nullptr is now consider more correct.
     firstRow = nullptr;
     lastRow = nullptr;
 }
 
+/// @brief The class destructor handles the deallocation of all linked list node
+///         memory blocks acquired from the heap to delete the entire list one
+///         linked list node at a time.
 Garden::~Garden()
 {
-    Row* temp = firstRow;
-    // output each plant row in the garden
-    while (temp != nullptr)
+    // We can create a iteration pointer to use to traverse our linked list.
+    // In the destructor we could get away with moving the firstRow pointer
+    // because we are destroying the entire linked list, but it is normal
+    // practice with traversals to create a pointer to use.
+    Row* cur = firstRow;
+    
+    // traverse the list, deleting the nodes as we go
+    while (cur != nullptr)
     {
-        Row *del = temp;
-        temp = temp->nextRow;
+        // we cannot delete the current node first because
+        // we need to use the node to traverse to the next
+        // node in our linked list
+        Row* del = cur;
+        cur = cur->nextRow;
         delete del;
     }
+
+    // Clean up or reset the data members of the Garden class
+    firstRow = nullptr;
+    lastRow = nullptr;
+    numRows = 0;
 }
 
-void Garden::addFrontRow(const Plant &p)
+/// @brief insert a new row at the front of the garden linked list
+/// @param x the Plant to copy into the new row
+void Garden::addFrontRow(const Plant &x)
 {
+    // First we have to create a new row that we want
+    // to insert into the garden
+    Row* newRow = new Row();
 
+    // Row is a simple struct and doesn't have constructors, so we
+    // set the value of the struct's Plant to x after creation.
+    newRow->p = x;
 
+    // add 1 as we are creating a new row
+    numRows++;
+
+    // is this the first node in the list?
+    if (numRows == 0)
+    {
+        firstRow = newRow;
+        lastRow = newRow;  
+        newRow->nextRow = nullptr; 
+    }
+    else 
+    {
+        newRow->nextRow = firstRow;
+        firstRow = newRow;
+    }
 }
 
 void Garden::removeFirstRow()
 {
+    if (numRows == 0)
+    {
+        return;
+    }
 
+    Row* del = firstRow;
+    firstRow = firstRow->nextRow;
+    delete del;
+    numRows--;
 }
 
 void Garden::drawGarden() const
@@ -64,7 +119,7 @@ void Garden::drawGarden() const
     // output each plant row in the garden
     while (temp != nullptr)
     {
-        cout << "Row: " << counter << endl;
+        cout << "Row: " << counter++ << endl;
         Plant curPlant = temp->p;
         curPlant.display();
         cout << endl;

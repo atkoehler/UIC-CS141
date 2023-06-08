@@ -25,10 +25,10 @@ int main()
     string nm = "n";
     Plant n(nm);
 
-    // Set the species to make it easier to note when destruction occurs
-    p.setSpecies("p");
-    m.setSpecies("m");
-    o.setSpecies("o");
+    // Set the type to make it easier to note when destruction occurs
+    p.setType("p");
+    m.setType("m");
+    o.setType("o");
     
     // We can create poniters to plants too!
     Plant* q = new Plant("ptr");
@@ -78,8 +78,8 @@ int main()
         
         // L and K will get destroyed when it goes out of scope after the
         // following curly brace is hit.
-        L.setSpecies("L");
-        K.setSpecies("K");
+        L.setType("L");
+        K.setType("K");
         cout << "Destroying Plant L and Plant K:" << endl;
     }    
     cout << endl;
@@ -112,7 +112,7 @@ int main()
     Tree mine;
     cout << "Tree display function:" << endl;
     mine.display();
-    mine.setSpecies("mine");
+    mine.setType("mine");
 
     cout << "tree age: ";
     cout << mine.getAge() << endl << endl;
@@ -127,10 +127,10 @@ int main()
         // We will use this concept alongside pointers to demonstrate
         // polymorphism in tomorrow's, June 7th, lecture.
         Tree z; 
-        z.setSpecies("Willow");
+        z.setType("Willow");
         
         Plant y = z;
-        y.setSpecies("Evergreen");
+        y.setType("Evergreen");
   
         // June 7th addition ------------------------------------------------
         // Using pointers to demonstrate polymorphism and virtual

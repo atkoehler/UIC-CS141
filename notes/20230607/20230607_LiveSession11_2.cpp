@@ -29,9 +29,11 @@ int main()
 
     g.drawGarden();
 
+    cout << "adding to front" << endl;
     g.addFrontRow(f);
     g.drawGarden();
 
+    g.removeFirstRow();
     g.addFrontRow(t);
     g.drawGarden();
 
