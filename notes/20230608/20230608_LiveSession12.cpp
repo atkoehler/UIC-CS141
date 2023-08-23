@@ -1,4 +1,4 @@
-/// @file main.cpp
+/// @file 20230608_LiveSession12.cpp
 /// @author Adam T Koehler, PhD
 /// @date June 8, 2023
 /// @brief Class code and lecture notes from the live session. Building on
