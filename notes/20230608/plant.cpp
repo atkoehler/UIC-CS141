@@ -1,6 +1,6 @@
 /// @file plant.cpp
 /// @author Adam T Koehler, PhD
-/// @date June 7, 2023
+/// @date June 8, 2023
 /// @brief Class code and lecture notes from the live session. Building on
 ///        June 6th notes and implementation to demonstrate polymorphism
 ///        and virtual keyword using display() and destructors.
