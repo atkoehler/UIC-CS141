@@ -76,7 +76,7 @@ void guessTheCard()
 
     // Acquire the guess from the user through synchronous console input
     char userE;
-    cout << "Guess a character: ";
+    cout << "Enter card value guess (A, 2-0, J, Q, K): ";
     cin >> userE;
     cout << endl;
 
@@ -88,6 +88,7 @@ void guessTheCard()
     else
     {
         cout << "You Lose :(" << endl;
+        cout << "The top card was " << values.at(randIndex) << endl;
     }
 }
 
@@ -103,9 +104,9 @@ int main()
     bool found = false;
     char userInput;
     string values = "?A234567890JQK";
-
+    cout << "Welcome Activity: Linear Search" << endl << endl;
     cout << "Let's search the deck to see if a card exists." << endl;
-    cout << "Enter the face card value to search for (A, 2-0, J, Q, K): ";
+    cout << "Enter the card value to search for (A, 2-0, J, Q, K): ";
     cin >> userInput;
     cout << endl;
 
@@ -147,17 +148,27 @@ int main()
     }
 
 
+    cout << endl << endl;
+    cout << "========================================================================";
+    cout << endl << endl;  
+
+
     // Welcome Activity Part 2: linear search example into a function
     // Let's repeat the same activity but define a funtion
     // with our previously written code.
+    cout << "Welcome Activity: Linear Search in a Function" << endl << endl;
 
     // Acquire a value to search for from the user
+    cout << "Let's search the deck to see if a card exists." << endl;
+    cout << "Enter the card value to search for (A, 2-0, J, Q, K): ";
     cin >> userInput;
+    cout << endl;
 
     // Let's use our search function that gives us the index of the 
     // discovered character.
     int location = search(values, userInput);
-    cout << location << endl;
+    cout << "Using our function, found " << userInput 
+        << " at: " << location << endl;
 
     // We could also use the string member function find()
     int location2 = values.find(userInput);
@@ -171,17 +182,44 @@ int main()
     // when we reach the nth position, the character was not found
     if (string::npos == values.find(userInput))
     {
-        cout << "not found" << endl;
+        cout << "Using find() member function, did not find " << userInput 
+            << endl;
     }
     else
     {
-        cout << location2 << endl;
+        cout << "Using find() member function, found " << userInput 
+            << " at: " << location2 << endl;
     }
-    
-    
+
+
+    cout << endl << endl;
+    cout << "========================================================================";
+    cout << endl << endl;  
+    cout << endl << endl;  
+
+
     // find() is often paired with substr() to acquire a part of a string
+    cout << "Exploring find() and substr()" << endl;
+
     // Here we will extract the quote from the string
-    string x = "hello \"this\" is the problem";
+    string x = "hello \"this\" is a problem";
+    cout << "Our string is:" << endl << endl;
+
+    for (const auto &e : x)
+    {
+        cout << e << "  ";
+    }
+    cout << endl;
+
+    for (size_t i = 0; i < x.size(); ++i)
+    {
+        cout << i << " ";
+        if (i < 10)
+        {
+            cout << " ";
+        }        
+    }
+    cout << endl << endl;
 
     // locate the first quotation mark
     int loc1 = x.find('"');
@@ -191,28 +229,50 @@ int main()
 
     // if we know there are only two we could use reverse find (rfind)
     // to discover the first quotation mark searching in reverse
-    loc2 = x.rfind('"');
+    // loc2 = x.rfind('"');
 
     // we should probably verfiy that we discovered two distinct
     // quotation marks but we will skip error checking due to limited
     // live lecture time remaining
 
     // Let's output the two locations of the discovered quotation marks.
-    cout << loc1 << ' ' << loc2 << endl;
+    cout << "The locations of the first two \" marks are: ";
+    cout << loc1 << " and " << loc2 << endl;
+    cout << endl;
     
     // Now we can invoke substr to acquire a substring of the string starting
     // 1 character after the initial location and containing the number
     // of characters between the quotation marks.
+    cout << "The contents within the quotes is: " << endl;
     cout << x.substr(loc1+1, loc2-loc1-1) << endl;
+    cout << endl;
 
     // substr() allows multiple different invocations based on arguments sent
-    cout << x.substr() << endl;     // substring from index 0 to the end
-    cout << x.substr(3) << endl;    // substring from index 3 to the end
-    cout << x.substr(3, 4) << endl; // substring from index 3 with a size 4
+    cout << "Using substr() in various ways on string x that contains:" << endl;
+    cout << x << endl;
+    cout << endl;
 
+    cout << "substr() result:" << endl;
+    cout << x.substr() << endl;     // substring from index 0 to the end
+    cout << endl;
+
+    cout << "substr(3) result:" << endl;
+    cout << x.substr(3) << endl;    // substring from index 3 to the end
+    cout << endl;
+
+    cout << "substr(3,4) result:" << endl;
+    cout << x.substr(3, 4) << endl; // substring from index 3 with a size 4
+    cout << endl;
+
+
+
+    cout << endl << endl;
+    cout << "========================================================================";
+    cout << endl << endl;  
 
     // Let's quickly build a function and a helper function for 
     // one of our past implementations, the guess the card game!
+    cout << "Let's launch our guessing game as a function!" << endl << endl;
     guessTheCard();
 
     return 0;
