@@ -49,7 +49,9 @@ int main()
     //     look at second card in the deck and so on until none left...
 
     // Implemenation
-    int split = 4;  // we will hardcode the split instead of using rand()
+    // we will hardcode the split instead of using rand()
+    // we use size_t as we will compare against size() return value
+    size_t split = 4;  
 
     // our deck representation
     string values;  // strings are initailized to the empty string: ""
@@ -63,7 +65,7 @@ int main()
     cout << "Activity: Counting" << endl;
     cout << "Counting the number of numeric cards in a split deck." << endl;
     cout << "Splitting at index " << split << endl;
-    for (int i=0; i < split; i+=1)
+    for (size_t i=0; i < split; i+=1)
     {
         // We can obtain a value at a specific index in the string with at()
         cout << "Character at current index value: " << values.at(i) << endl;
@@ -252,7 +254,7 @@ int main()
 
     // broken algorithm, doesn't work for uneven split
     // implementation from class 5/15
-    for(int i=0, j=split; i < split || j < values.size(); ++i, ++j)
+    for(size_t i=0, j=split; i < split || j < values.size(); ++i, ++j)
     {
         update = update + values.at(i) + values.at(j);
     }
