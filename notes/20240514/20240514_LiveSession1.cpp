@@ -184,9 +184,6 @@ int main()
     string values = "?A234567890JQK";
     char userE;
 
-    // Maybe we want an index into the string instead of a character
-    int uE;
-
     // Acquire a user guess for which card is on the top of the deck
     cout << "Enter a guess: ";
     cin >> userE;
