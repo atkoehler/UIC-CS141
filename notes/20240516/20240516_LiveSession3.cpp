@@ -288,7 +288,7 @@ int main()
 int search(const string &lookIn, char lookFor)
 {
     // iterate through the entire string
-    for(int i = 0; i < lookIn.size(); ++i)
+    for(size_t i = 0; i < lookIn.size(); ++i)
     {
         // when discovering the character, return immediately
         // to improve the efficiency of the search algorithm
