@@ -293,7 +293,7 @@ int main()
     // Stop when either deck has no more cards.
     // We want access to values of iterating variables beyond the loop
     // so it makes sense to use a while loop here instead of a for loop
-    int i = 0, j = split;
+    size_t i = 0, j = split;
     while(i < split && j < values.size())
     {
         update = update + values.at(i) + values.at(j);
