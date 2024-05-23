@@ -82,7 +82,7 @@ class Card
         void setFaceValue(char v)
         {
             faceValue = v;
-        };
+        }
 
 
         // accessors/getters
