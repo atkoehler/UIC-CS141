@@ -1,0 +1,18 @@
+Ace Clubs black
+2 Clubs black
+3 Clubs black
+4 Clubs black
+5 Clubs black
+6 Clubs black
+7 Clubs black
+8 Clubs black
+9 Clubs black
+10 Clubs black
+Jack Clubs black
+Queen Clubs black
+King Clubs black
+Joker red
+3 Hearts red
+4 Spades black
+5 Diamonds red
+DONE
