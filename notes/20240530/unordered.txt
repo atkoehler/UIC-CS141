@@ -1,0 +1,13 @@
+Ace Clubs black
+3 Clubs black
+3 Hearts red
+Jack Clubs black
+3 Hearts black
+2 Clubs black
+2 Spades black
+6 Clubs black
+Queen Spades black
+7 Clubs black
+3 Spades black
+Jack Spades black
+DONE
