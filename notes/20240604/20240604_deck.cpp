@@ -245,11 +245,9 @@ void Deck::sortDeck()
 
 
 
-
 // =====================================================
 // Functionality implementations from 06-04-2024 lecture
 // =====================================================
-
 
 // Welcome Activity: Write a function that takes 
 // two Deck objects, combines them such that the first
@@ -262,6 +260,10 @@ void Deck::sortDeck()
 // In a class, would this be public or private?
 // In a class, would this be a const member function?
 //
+
+/// @brief Combine two Decks based on the + operator, creating a new Deck
+/// @param addMe the Deck to add to the back of the implicity supplied Deck
+/// @return a new Deck containing both Decks combined one after the other
 Deck Deck::operator+(const Deck &addMe) const
 {
     Deck newDeck;

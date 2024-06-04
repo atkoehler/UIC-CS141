@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-#include "20240530_card.h"
+#include "20240530_card.h" // Date in file name is the same due to no changes
 
 using namespace std;
 
@@ -77,7 +77,9 @@ class Deck
         size_t findMinInDeck() const;
         void sortDeck();
 
-
+    // =====================================================
+    // Functionality implementations from 06-04-2024 lecture
+    // =====================================================
     public:
         Deck operator+(const Deck &) const;
 };
