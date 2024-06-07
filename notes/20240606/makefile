@@ -1,5 +1,10 @@
+#  @file makefile
+#  @author Adam T Koehler, PhD
+#  @date June 6, 2024
+#  @brief Basic makefile to introduce the concept for next term
+
 # makefile basics
-# tabs are used not spaces
+# tab characters are used not spaces
 # targets can be invoked by specifying the name such as make clean
 # more to come in future courses!
 

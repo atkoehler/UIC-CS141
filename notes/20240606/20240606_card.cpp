@@ -1,6 +1,6 @@
 /// @file 20240530_card.cpp
 /// @author Adam T Koehler, PhD
-/// @date May 30, 2024
+/// @date June 6, 2024
 /// @brief Card class that is continually under development.
 ///     New functionality that is added in a lecture will exist at end
 ///     after comment about lecture date that featured the live additions.
@@ -188,3 +188,28 @@ string Card::makeLowerCase(const string &con) const
 // =====================================================
 // Functionality implementations from 06-06-2024 lecture
 // =====================================================
+
+/// @brief Implemting the inequality operator for Card objects
+/// @param rhs the right hand side of the operator based function invocation
+/// @return true when the objects are not equal, otherwise false
+bool Card::operator!=(const Card &rhs) const
+{
+    return !(*this == rhs);
+}
+
+/// @brief Implemting the less than operator for Card objects
+/// @param rhs the right hand side of the operator based function invocation
+/// @return true when the implicit object (left hand side) is less than
+///     the right hand side (rhs) object, otherwise false
+bool Card::operator<(const Card &rhs) const
+{
+    // Four different example implementations!
+    // return !(*this == rhs) && !(*this > rhs);
+    // return !(*this == rhs || *this > rhs);
+    // return (*this != rhs) && !(*this > rhs);
+
+    // Even though our parameter object comes in as a right hand side
+    // of the operator does not mean it has to stay on the right
+    // hand side of the operators within our function.
+    return rhs > *this;
+}
