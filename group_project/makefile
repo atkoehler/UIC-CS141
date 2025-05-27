@@ -1,6 +1,6 @@
 build:
 	rm -f program.out
-	g++ -I includes -Wall -fconcepts -std=c++2a die.cpp utils.cpp main.cpp -o game.out
+	g++ -I includes -Wall -fconcepts -std=c++2a die.cpp utils.cpp game.cpp -o game.out
 
 examples:
 	rm -f program.out
