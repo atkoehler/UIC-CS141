@@ -90,7 +90,7 @@ void Die::roll()
 
 
 /////////////////////////////////////////////
-//            to_string Fucntions          //
+//            to_string Functions          //
 /////////////////////////////////////////////
 
 /// @brief combine all the values into a space separated string
