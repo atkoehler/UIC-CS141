@@ -1,6 +1,6 @@
 /// @file frequencies.cpp
 /// @author Adam T Koehler, PhD
-/// @date May 22, 2026
+/// @date May 22, 2025
 /// @brief Implementation of a counting program that counts the frequency of
 ///     various characteristics within a data set of strings. Data is acquired 
 ///     through file input and stored only when it meets specific conditions.
