@@ -5,6 +5,7 @@
 ///     Lecture File IO, Faro Shuffle (string based), and classes.
 
 #include <iostream>
+#include <string>
 #include <random>
 #include <vector>
 #include "card.h"
@@ -36,9 +37,69 @@ void fill2DVector(vector<vector<int>> &v, int rows, int cols)
 
 }
 
+/// @brief Implement the Faro Shuffle (interleaving shuffle) algorithm to 
+///         build a new string from the provided string.
+/// @param s The starting string.
+/// @return The shuffled string.
+string faroShuffle(const string &s)
+{
+    string shuffled;
+    int start = 0;
+    int halfway = 0;
+
+    // demonstration of using substring function if we needed it
+    // string fhalf = s.substr(0, s.size() / 2);
+
+    // Algorithm Implementation Version 1
+    // for(start = 0, halfway = s.size() / 2; 
+    //     start < s.size() / 2 && halfway < s.size(); 
+    //     ++start, ++halfway)
+    // {
+    //     shuffled = shuffled + s.at(start) + s.at(halfway);
+    // }
+
+    // // determine if the string is odd sized
+    // if (s.size() > 0 && 0 != s.size()%2)
+    // {
+    //     // add last character that is leftover
+    //     shuffled = shuffled + s.back();
+    // }
+
+
+    // Algorithm Implementation Version 2
+    halfway = s.size() / 2;
+    for(start = 0; start < halfway; ++start)
+    {
+        shuffled = shuffled + s.at(start) + s.at(start+halfway);
+    }
+
+    // determine if the string is odd sized
+    if (s.size() > 0 && 0 != s.size()%2)
+    {
+        // add last character that is leftover
+        shuffled = shuffled + s.back();
+    }
+
+    return shuffled;
+}
 
 int main()
 {
- 
+    string values;
+    
+    // even string length test case
+    values = "A1234567890JQK";
+    cout << "Even Length" << endl;
+    cout << "Before: " << values << endl;
+    values = faroShuffle(values);
+    cout << "After:  " << values << endl;
+
+    // odd string length test case
+    values = "A1234567890JQ";
+    cout << "Odd Length" << endl;
+    cout << "Before: " << values << endl;
+    values = faroShuffle(values);
+    cout << "After:  " << values << endl;
+
     return 0;
 }
