@@ -4,6 +4,7 @@
 /// @brief Code and lecture notes from the live session. 
 ///     Lecture File IO, Faro Shuffle (string based), and classes.
 
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <random>
@@ -18,23 +19,44 @@ using namespace std;
 /// @param v The vector to build.
 /// @param rows The number of rows in the 2D vector.
 /// @param cols The number of cols in the 2D vector.
-void fill2DVector(vector<vector<int>> &v, int rows, int cols)
+void fill2DVector(vector<vector<float>> &v, int rows, int cols, const string &filename)
 {
     // build a row
     // place that row into the 2D vector
 
+    // open file during stream creation
+    ifstream inFile(filename);
+
+    // creat stream and then open file
+    // ifstream inFS;
+    // inFS.open(filename);
+
+    if (!inFile.is_open())
+    {
+        cout << "bad filename: " << filename << endl;
+        // cerr << "bad filename: " << filename << endl;
+        return;
+    }
+
     for(int r = 0; r < rows; ++r)
     {
-        vector<int> rowVector;
+        vector<float> rowVector;
         for (int c=0; c < cols; ++c)
         {
             float value;
-            cin >> value;
+            inFile >> value;
+            cout << "inserting: " << value << endl;
             rowVector.push_back(value);
         }
         v.push_back(rowVector);
     }
 
+    // in a loop this 
+    // could be used to read entire file until End-Of-File EOF
+    // inFile.eof()
+
+    
+    inFile.close();
 }
 
 /// @brief Implement the Faro Shuffle (interleaving shuffle) algorithm to 
@@ -100,6 +122,39 @@ int main()
     cout << "Before: " << values << endl;
     values = faroShuffle(values);
     cout << "After:  " << values << endl;
+
+    int nRows = 4; 
+    int nCols = 3;
+    vector<vector<float>> v;
+    fill2DVector(v, nRows, nCols, "input.txt");
+
+    for(int r = 0; r < nRows; ++r)
+    {
+        for (int c=0; c < nCols; ++c)
+        {
+            cout << v.at(r).at(c) << '\t';
+        }
+        cout << endl;
+    }
+
+
+    cout << endl << endl << endl;
+
+    Card A("Jack", "Hearts", true);
+    Card B("Jack", "Hearts", true);
+    Card C("Jack", "Spades", false);
+    Card D("Jack", "Diamonds", true);
+    Card E("Two", "Diamonds", true);
+
+    if (A == C)
+    {
+        cout << "same card!" << endl;
+    }
+    else
+    {
+        cout << "different card!" << endl;
+    }
+
 
     return 0;
 }
