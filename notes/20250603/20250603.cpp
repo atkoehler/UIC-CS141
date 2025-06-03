@@ -8,9 +8,23 @@
 #include <vector>
 #include "card.h"
 
-using namespace std;
+// using namespace std;
+// ...(const Deck &other)
+// {
+//     other.getDeck
 
-void Examples1();
+//     >=
+// }
+
+// deep copy goes through and creates an entire duplicate
+// int arr[5]; int arr2[5]; all elements are the same
+// shallow copy int arr[5]; int *arr2 = arr;
+
+/// @brief determine if a character ('f') exists using null terminated 
+///         C-string (char array)
+/// @param arr the c-string
+/// @return true when the character is discovered, otherwise false
+bool charExists(const char arr[], char);
 void Examples2();
 void Examples3();
 
@@ -25,7 +39,8 @@ int main(int argc, char *argv[])
         switch(atoi(argv[1]))
         {
             case 1:
-                Examples1();   
+                cout << charExists("hfllo", 'f') << endl;
+                cout << charExists("hello", 'f') << endl;
                 break;
 
             case 2:
@@ -44,7 +59,7 @@ int main(int argc, char *argv[])
     {
         // could not parse or did not find extra command line argument
         // therefore just run everything
-        Examples1();
+        cout << charExists("hello", 'f') << endl;
 
         cout << endl << endl;
         Examples2();
@@ -55,3 +70,32 @@ int main(int argc, char *argv[])
     }    
     return 0;
 }
+
+
+
+/// @brief determine if a character ('f') exists using null terminated 
+///         C-string (char array)
+/// @param arr the c-string
+/// @return true when the character is discovered, otherwise false
+bool charExists(const char arr[], char c)
+{
+    int index = 0;
+    while('\0' != arr[index])
+    {
+        if (c == arr[index])
+        {
+            return true;
+        }
+        ++index;
+    }
+
+    return false;
+}
+
+
+void Examples2()
+{}
+
+
+void Examples3()
+{}
