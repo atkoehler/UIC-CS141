@@ -63,7 +63,15 @@ class Card
         string to_string() const;
 
 
+        ////////////////////////////////////////////////////////////
+        // relational operator function overloads
+        // provide public ability to acquire compare objects
+        ////////////////////////////////////////////////////////////
         bool operator==(const Card &) const;
         bool operator!=(const Card &) const;
+        bool operator>(const Card &) const;
+        bool operator<=(const Card &) const;
+        bool operator<(const Card &) const;
+        bool operator>=(const Card &) const;
 
 };

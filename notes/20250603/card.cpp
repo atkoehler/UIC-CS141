@@ -1,6 +1,6 @@
 /// @file card.cpp
 /// @author Adam T Koehler, PhD
-/// @date May 29, 2025
+/// @date June 3, 2025
 /// @brief Card class that is continually under development.
 ///     New functionality that is added in a lecture will exist at end
 ///     after comment about lecture date that featured the live additions.
@@ -119,6 +119,18 @@ string Card::to_string() const
 
 
 
+////////////////////////////////////////////////////////////
+// relational operator function overloads
+// provide public ability to acquire compare objects
+////////////////////////////////////////////////////////////
+
+// =====================================================
+// Functionality implementations from 05-29-2025 lecture
+// =====================================================
+
+/// @brief Relational equal operator overlaod for the Card class.
+/// @param rhs The right hand side object of the relational comparison.
+/// @return true when the Cards have all the same values, otherwise false.
 bool Card::operator==(const Card &rhs) const
 {
     // Compare faceValue
@@ -132,20 +144,15 @@ bool Card::operator==(const Card &rhs) const
     return false;
 }
 
-bool Card::operator>(const Card &rhs) const
-{
-
-    // logic here
-}
-
-bool Card::operator<=(const Card &rhs) const
-{
-
-    return !(*this > rhs);
-}
 
 
-
+// =====================================================
+// Functionality implementations from 06-03-2025 lecture
+// =====================================================
+/// @brief Relational not equal operator overlaod for the Card class.
+/// @param rhs The right hand side object of the relational comparison.
+/// @return true when the Cards are not equal to one another, meaning they 
+///         do not have all the same values, otherwise false.
 bool Card::operator!=(const Card &rhs) const
 {
     // How can we define != in terms of other operators?
@@ -163,3 +170,47 @@ bool Card::operator!=(const Card &rhs) const
     
     return !(*this == rhs);
 }
+
+// We can similarly define other relational operators in pairs
+/// @brief Relational greater than operator overlaod for the Card class.
+/// @param rhs The right hand side object of the relational comparison.
+/// @return true when the implicit object is defined as greater than the parameter object
+bool Card::operator>(const Card &rhs) const
+{
+    // TODO: implement logic of what it means to be greater than
+    return false;
+}
+
+
+/// @brief Relational less than or equal to operator overlaod for the Card class.
+/// @param rhs The right hand side object of the relational comparison.
+/// @return true when the implicit object is not greater than the parameter object
+bool Card::operator<=(const Card &rhs) const
+{
+
+    return !(*this > rhs);
+}
+
+
+/// @brief Relational less than than operator overlaod for the Card class.
+/// @param rhs The right hand side object of the relational comparison.
+/// @return true when the implicit object is defined as less than the parameter object
+bool Card::operator<(const Card &rhs) const
+{
+    // TODO: implement logic of what it means to be less than
+    return false;
+}
+
+
+/// @brief Relational greater than or equal to operator overlaod for the Card class.
+/// @param rhs The right hand side object of the relational comparison.
+/// @return true when the implicit object is not less than the parameter object
+bool Card::operator>=(const Card &rhs) const
+{
+
+    return !(*this < rhs);
+}
+
+
+
+
