@@ -25,8 +25,7 @@
 /// @param arr the c-string
 /// @return true when the character is discovered, otherwise false
 bool charExists(const char arr[], char);
-void Examples2();
-void Examples3();
+
 
 /// @brief main function for running our examples
 /// @param argc the number of command line arguments
@@ -43,14 +42,6 @@ int main(int argc, char *argv[])
                 cout << charExists("hello", 'f') << endl;
                 break;
 
-            case 2:
-                Examples2();
-                break;
-
-            case 3:
-                Examples3();
-                break;
-            
             default:
                 break;
         }
@@ -60,14 +51,8 @@ int main(int argc, char *argv[])
         // could not parse or did not find extra command line argument
         // therefore just run everything
         cout << charExists("hello", 'f') << endl;
-
-        cout << endl << endl;
-        Examples2();
-        
-        cout << endl << endl;  
-        Examples3();  
-        
     }    
+    
     return 0;
 }
 
@@ -91,11 +76,3 @@ bool charExists(const char arr[], char c)
 
     return false;
 }
-
-
-void Examples2()
-{}
-
-
-void Examples3()
-{}

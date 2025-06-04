@@ -6,6 +6,7 @@
 ///     after comment about lecture date that featured the live additions.
 
 #include <string>
+#include <vector>
 #include "card.h"
 
 using namespace std;
@@ -172,9 +173,13 @@ bool Card::operator!=(const Card &rhs) const
 }
 
 // We can similarly define other relational operators in pairs
-/// @brief Relational greater than operator overlaod for the Card class.
-/// @param rhs The right hand side object of the relational comparison.
-/// @return true when the implicit object is defined as greater than the parameter object
+/// @brief Compare the cards to determine which is greater than the other.
+///     Uses suit strings for first comparison.
+///     Then attempt to convert to numerical rank from 0 to 13.
+///     When playing card conversion fails use string comparison of 
+///     face values where black cards of matching face values come first.
+/// @param rhs the card to compare to the implicit object
+/// @return true when the implict object is greater, otherwise false
 bool Card::operator>(const Card &rhs) const
 {
     // TODO: implement logic of what it means to be greater than
@@ -211,6 +216,68 @@ bool Card::operator>=(const Card &rhs) const
     return !(*this < rhs);
 }
 
+/// @brief Overloading the + operator for Cards. Some operators
+///     do not make sense to overload because there is not an
+///     easy translation of what is normally expected from 
+///     the operator. We do not need to always use the normal
+///     expected overload with an operator if we have a good purpose
+///     that we want to clearly define and use the operator for.
+/// @param rightSide the Card object supplied on the right side of 
+///     the + operator when used in C++ syntax
+/// @return a black Card that has the face value and suits of 
+///     the two Card objects concatenated together
+Card Card::operator+(const Card &rightSide) const
+{
+    return Card(getFaceValue() + rightSide.getFaceValue(), 
+                getSuit() + rightSide.getSuit(),
+                false);
+}
 
 
 
+// ===========================================================================
+// Functionality implementations asynchronously added after 06-03-2025 lecture
+// ===========================================================================
+
+/// @brief Attempt to convert the Card's face value to a playing card rank
+/// @param number pass by reference integer to update with conversion value
+/// @return true when successfully converted, false otherwise
+bool Card::convertToRank(int &number) const
+{
+    vector<string> ranks = {"joker", "ace", "2", "3", "4", "5", "6", "7", "8",
+         "9", "10", "jack", "queen", "king"};
+
+    // check every rank and see if this card's face value matches
+    for (size_t i = 0; i < ranks.size(); ++i)
+    {
+        if (ranks.at(i) == makeLowerCase(getFaceValue()))
+        {
+            number = i;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+/// @brief Converts the provide string to a all lowercase version of string
+/// @param con the string to convert
+/// @return a new string with all the alphabetic characters converted to 
+///     lowercase versions
+string Card::makeLowerCase(const string &con) const
+{
+    string converted = con;
+
+    // convert every alphabetic character in the converted
+    // string to a lowercase character
+    for (auto &ch : converted)
+    {
+        if (isalpha(ch))
+        {
+            ch = tolower(ch);
+        }
+    }
+
+    return converted;
+}

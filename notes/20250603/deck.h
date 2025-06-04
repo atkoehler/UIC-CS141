@@ -1,3 +1,12 @@
+/// @file deck.h
+/// @author Adam T Koehler, PhD
+/// @date June 3, 2025
+/// @brief Definition for the Deck class. Functionality in the
+///         the deck.cpp file. Continually developed. New implementations are
+///         often timestamped with the leture date within the .cpp file.
+
+#pragma once
+
 #include "card.h"
 #include <vector>
 #include <string>
@@ -6,51 +15,44 @@
 
 using namespace std;
 
+// Class/Object Design
+// data members
+//      vector<Card> vs 
+//      Card arr[52], size, capacity
+//
+// functionality
+//      shuffle()
+//      drawBottom/Top/Middle/Random()
+//      display/print
+//      sort()
+//          * To achieve sort we may need to modify Card to have a rank
+
+
+/// @brief Collection class for Card objects
 class Deck
 {
-// data members
-// vector<Card> vs Card arr[52], size, capacity
     private:
         vector<Card> dk;
 
-// functionality
-// shuffle()
-// drawBottom/Top/Middle/Random()
-// sort()
-// display/print
-
-// Card -> rank
-
-// in .cpp
-// string Deck::to_string()
     public:
-    /// @brief combine all elements of the deck
-    ///         into a single string separated
-    ///         by newline
-    /// @return single string with all the elements
-    string to_string()
-    {
-        string newString; 
+        string to_string() const;
+        void printDeck() const;
 
-        // index based for loop
-        // for each is the natural choice
-        // going through all the elements
-        // and we don't care about the index
-        for(const Card& c : dk)
-        {
-            newString += c.to_string() + "\n";
-        }
-        
-        
-        // "Card is a Jack of Spades which is black\n
-        //  Card is a Jack of Hearts which is red\n
-        //  ";
+        bool empty() const;
+        size_t deckSize() const;
 
-        if (dk.size() > 0)
-        {
-            newString.pop_back();
-        }
+        // void addCardBottom(const Card &);
+        // const Card& peekAtTop() const;
+        // Card drawTop(); 
+        // Card drawRandom();
 
-    }
+        // We could define without & and without const and it creates a copy
+        // of the top card on the deck and return that. For 
+        // efficiency we can just return the object memory address
+        // that is at the top since we know it cannot be altered
+        // Card peekAtTop() const;
 
+    // private:
+    //     void shiftLeft(size_t start);
+    //     void removeCard(size_t index);
 };

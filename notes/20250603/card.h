@@ -1,6 +1,6 @@
 /// @file card.h
 /// @author Adam T Koehler, PhD
-/// @date May 29, 2025
+/// @date June 3, 2025
 /// @brief Definition for the Card class. Functionality in the
 ///         the card.cpp file. Continually developed. New implementations are
 ///         often timestamped with the leture date within the .cpp file.
@@ -73,5 +73,10 @@ class Card
         bool operator<=(const Card &) const;
         bool operator<(const Card &) const;
         bool operator>=(const Card &) const;
+        Card operator+(const Card &) const;
+
+    private:
+        bool convertToRank(int &number) const;
+        string makeLowerCase(const string &) const;
 
 };
