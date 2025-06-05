@@ -41,10 +41,10 @@ class Deck
         bool empty() const;
         size_t deckSize() const;
 
-        // void addCardBottom(const Card &);
+        void addCardBottom(const Card &);
         // const Card& peekAtTop() const;
-        // Card drawTop(); 
-        // Card drawRandom();
+        Card drawTop(); 
+        Card drawRandom();
 
         // We could define without & and without const and it creates a copy
         // of the top card on the deck and return that. For 
@@ -52,7 +52,7 @@ class Deck
         // that is at the top since we know it cannot be altered
         // Card peekAtTop() const;
 
-    // private:
-    //     void shiftLeft(size_t start);
-    //     void removeCard(size_t index);
+    private:
+        void shiftLeft(size_t start);
+        void removeCard(size_t index);
 };

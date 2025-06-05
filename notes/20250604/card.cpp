@@ -173,64 +173,13 @@ bool Card::operator!=(const Card &rhs) const
     return !(*this == rhs);
 }
 
-// We can similarly define other relational operators in pairs
-/// @brief Compare the cards to determine which is greater than the other.
-///     Uses suit strings for first comparison.
-///     Then attempt to convert to numerical rank from 0 to 13.
-///     When playing card conversion fails use string comparison of 
-///     face values where black cards of matching face values come first.
-/// @param rhs the card to compare to the implicit object
-/// @return true when the implict object is greater, otherwise false
-bool Card::operator>(const Card &rhs) const
-{
-    /// 1. Uses suit strings for first comparison.
-    if (getSuit() != rhs.getSuit())
-    {   
-        return getSuit() > rhs.getSuit();
-    }
-
-    /// 2. Then attempt to convert to numerical rank from 0 to 13.
-    int myRank = -1, rhsRank = -1;
-    if (this->convertToRank(myRank) && rhs.convertToRank(rhsRank))
-    {
-        cout << myRank << " " << rhsRank << endl;
-        return myRank > rhsRank;
-    }
-
-    
-    /// 3. When playing card conversion fails use string comparison of 
-    ///     face values where black cards of matching face values come first.
-    // if (this->getFaceValue() == rhs.getFaceValue())
-    // {
-    //     // A > C (black, red) false
-    //     // A > C (black, black) false
-    //     // A > C (red, ) false
-    //     // A > C (red, red) false
-    //     return !this->isRed();
-    // }
-    std::cout << "shouldn't get here" << std::endl;
-
-    return this->getFaceValue() > rhs.getFaceValue();
-}
-
 
 /// @brief Relational less than or equal to operator overlaod for the Card class.
 /// @param rhs The right hand side object of the relational comparison.
 /// @return true when the implicit object is not greater than the parameter object
 bool Card::operator<=(const Card &rhs) const
 {
-
     return !(*this > rhs);
-}
-
-
-/// @brief Relational less than than operator overlaod for the Card class.
-/// @param rhs The right hand side object of the relational comparison.
-/// @return true when the implicit object is defined as less than the parameter object
-bool Card::operator<(const Card &rhs) const
-{
-    // TODO: implement logic of what it means to be less than
-    return false;
 }
 
 
@@ -239,9 +188,9 @@ bool Card::operator<(const Card &rhs) const
 /// @return true when the implicit object is not less than the parameter object
 bool Card::operator>=(const Card &rhs) const
 {
-
     return !(*this < rhs);
 }
+
 
 /// @brief Overloading the + operator for Cards. Some operators
 ///     do not make sense to overload because there is not an
@@ -307,4 +256,86 @@ string Card::makeLowerCase(const string &con) const
     }
 
     return converted;
+}
+
+
+
+// =====================================================
+// Functionality implementations from 06-04-2025 lecture
+// =====================================================
+
+// We can similarly define other relational operators in pairs
+/// @brief Compare the cards to determine which is greater than the other.
+///     Uses suit strings for first comparison.
+///     Then attempt to convert to numerical rank from 0 to 13.
+///     When playing card conversion fails use string comparison of 
+///     face values where black cards of matching face values come first.
+/// @param rhs the card to compare to the implicit object
+/// @return true when the implict object is greater, otherwise false
+bool Card::operator>(const Card &rightSide) const
+{
+    // Suits do not match, simply compare them with greater than
+    // operator to compare the strings
+    if (this->getSuit() != rightSide.getSuit())
+    {
+        return this->getSuit() > rightSide.getSuit();
+    }
+
+    // Suits match, attempt to convert to numerical rank
+    int leftSideAsNumber = -1;
+    int rightSideAsNumber = -1;
+    if (convertToRank(leftSideAsNumber) && 
+        rightSide.convertToRank(rightSideAsNumber))
+    {
+        // Suits match and ranks match, return whether the card
+        // is red as red will come after black (using alphabetical sort)
+        if (leftSideAsNumber == rightSideAsNumber)
+        {
+            // all properties match, not greater
+            if (isRed() == rightSide.isRed())
+            {
+                return false;
+            }
+            
+            // Colors do not match, if I am red, I am larger
+            return isRed();
+        }
+        
+        // unmatching ranks, return comparison result
+        return leftSideAsNumber > rightSideAsNumber;
+    }
+
+    // Rank conversion failed for at least one of the cards fallback to
+    // string comparison of face values.
+
+    // Suits match and face values match, return whether the card
+    // is red as red will come after black (using alphabetical sort)
+    if (getFaceValue() == rightSide.getFaceValue())
+    {
+        // all properties match, not greater
+        if (isRed() == rightSide.isRed())
+        {
+            return false;
+        }
+        
+        // Colors do not match, if I am red, I am larger
+        return isRed();
+    }
+
+    // Unmatched face values, just return the alphabetic string comparison
+    return getFaceValue() > rightSide.getFaceValue();
+}
+
+
+/// @brief Relational less than than operator overlaod for the Card class.
+/// @param rhs The right hand side object of the relational comparison.
+/// @return true when the implicit object is defined as less than the parameter object
+bool Card::operator<(const Card &rhs) const
+{
+    // We can define < with a combination of multiple relational expressions
+    // we create this compound using && or ||
+    // We break down < to two parts
+    // first we know we want to use > but the opposite is <= not strictly <
+    // so we use != to avoid the equality case and the remaining cases are all strictly <
+    return *this != rhs && !(*this > rhs);
 }
