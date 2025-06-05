@@ -1,6 +1,6 @@
 /// @file card.cpp
 /// @author Adam T Koehler, PhD
-/// @date June 3, 2025
+/// @date June 5, 2025
 /// @brief Card class that is continually under development.
 ///     New functionality that is added in a lecture will exist at end
 ///     after comment about lecture date that featured the live additions.
@@ -11,7 +11,6 @@
 #include "card.h"
 
 using namespace std;
-
 
 
 
@@ -220,8 +219,10 @@ Card Card::operator+(const Card &rightSide) const
 /// @return true when successfully converted, false otherwise
 bool Card::convertToRank(int &number) const
 {
-    vector<string> ranks = {"joker", "ace", "2", "3", "4", "5", "6", "7", "8",
-         "9", "10", "jack", "queen", "king"};
+    vector<string> ranks = 
+        {"joker", "ace", "two", "three", "four", 
+         "five", "six", "seven", "eight",
+         "nine", "ten", "jack", "queen", "king"};
 
     // check every rank and see if this card's face value matches
     for (size_t i = 0; i < ranks.size(); ++i)

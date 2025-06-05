@@ -1,6 +1,6 @@
 /// @file deck.cpp
 /// @author Adam T Koehler, PhD
-/// @date June 3, 2025
+/// @date June 5, 2025
 /// @brief Deck class that is continually under development.
 ///     New functionality that is added in a lecture will exist at end
 ///     after comment about lecture date that featured the live additions.
@@ -101,7 +101,7 @@ Card Deck::drawRandom()
     }
 
     // generate a random number bounded to valid indices
-    int r = rand() % dk.size();
+    size_t r = rand() % dk.size();
     
     // store a copy of the Card to return
     Card copy = dk.at(r);
@@ -173,17 +173,7 @@ Card Deck::drawTop()
     // the deck.
     Card copy = dk.at(0);
 
-    // Iterate over and shift cards towards the beginning
-    // of the deck, eliminating the first card and creating
-    // a duplicate at the end that can be popped off.
-    shiftLeft(0);
-
-    // Elimate the last element from the vector representation of the deck
-    // as it is now a duplicate after shifting.
-    dk.pop_back();
-
-    // Could replace both of the above lines with this
-    // removeCard(0);
+    removeCard(0);
 
     // Finally we return the copy we previously created and stored.
     return copy;
@@ -216,9 +206,13 @@ void Deck::removeCard(size_t index)
 // 2. get a card from the deck
 // 3. compare to that card, did we find what we are looking for?
 
-uint Deck::searchLinear(const Card &c) const
+/// @brief Search for a Card within the Deck and return -1 or the location of
+///         the first match.
+/// @param c The card to search for.
+/// @return The matching Card's index within the container, otherwise -1.
+size_t Deck::searchLinear(const Card &c) const
 {
-    for(uint i = 0; i < deckSize(); ++i)
+    for(size_t i = 0; i < deckSize(); ++i)
     {
         if(c == dk.at(i))
         {
@@ -229,30 +223,150 @@ uint Deck::searchLinear(const Card &c) const
     return -1;
 }
 
-Card Deck::findMinCard() const
+
+/// @brief Search for a Card within the Deck and return -1 or the location of
+///         the first match.
+/// @param c The card to search for.
+/// @param spot the reference parameter filled with the index of the matched card
+/// @return true when the match is discovered, otherwise false
+bool Deck::searchLinear(const Card &c, int &spot) const
 {
+    for(size_t i = 0; i < deckSize(); ++i)
+    {
+        if(c == dk.at(i))
+        {
+            spot = i;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/// @brief internal member function to determine the minimum Card in the deck and provide
+///     the Card back to the caller along with the index.
+/// @param index reference variable that is filled with the index of the minimum Card
+/// @return a copy of the Card that is the minimum in the Deck
+Card Deck::findMinInDeck(int &index) const
+{
+    // 0) nothing in the Deck, no Card to return
+    index = -1;
     if(empty())
     {
         return {}; // calls Card()
     }
 
-    // first minimum?
+    // 1) set up the first minimum value
     Card min = dk.at(0);
 
+    // 2) iterate over the Deck and determine if a new
+    //      minimum needs to be kept
+    for(int i = 0; i < deckSize(); ++i)
+    {
+        // Do we have a new minimum to store?
+        if (dk.at(i) < min)
+        {
+            min = dk.at(i);
+            index = i;
+        }
+    }
 
+    return min;
 }
 
-// bool Deck::searchLinear(const Card &c, int &spot) const
-// {
-//     for(size_t i = 0; i < deckSize(); ++i)
-//     {
-//         if(c == dk.at(i))
-//         {
-//             spot = i;
-//             return true;
-//         }
-//     }
+/// @brief internal member function to determine the index of the minimum
+///         Card in the deck.
+/// @return the index of the minimum Card in the Deck
+/// @pre deck is non-empty 
+size_t Deck::findMinInDeck() const
+{
+    size_t retVal = 0;
 
-//     return false;
-// }
+    // iterate through the Deck of Cards locating the index of the 
+    // minimum Card
+    for (size_t i = 1; i < deckSize(); i++) 
+    {
+        // card we are look at is not equivalent and it is smaller
+        // need compound conditional due to not having < operator defined
+        if (dk.at(i) < dk.at(retVal))
+        {
+            retVal = i;
+        }
+    }
 
+    return retVal;
+}
+
+
+
+// ===========================================================================
+// Functionality implementations added asynchronously after 06-05-2025 lecture
+// ===========================================================================
+
+// const Card& Deck::peekAtTop() const
+// const is used twice here!
+// first const means the returned reference address cannot be modified
+//      we have seen this in for-each loops
+// second const prevents changing of data members of the deck object
+
+/// @brief Provide a reference to the top card in the deck so user 
+///     can peek at the values of the top most card.
+/// @return constant reference to top most Card
+const Card& Deck::peekAtTop() const
+{
+    // Top is the front of the vector, index 0
+    // return dk.at(0);
+
+    // Since C++11 we use the front() function (and back() function)
+    // front() is defined for several containers to unify the function names
+    // to make it easier to use containers without having to memorize or 
+    // recall functions that are only for one container or another
+    // (in this case vectors). Specific container functions do still exist
+    // as they make sense for only that container type.
+    return dk.front();
+}
+
+/// @brief perform 100 random Card swaps on the deck as a form "shuffling"
+void Deck::scramble()
+{
+    // perform 100 swaps
+    for(int i = 0; i < 100; i++)
+    {
+        size_t index2 = 0;
+        size_t index1 = rand() % deckSize();
+
+        // rechoose index2 as long as it matches index1
+        while (index1 == index2)
+        {
+            index2 = rand() % deckSize();
+        }
+
+        // Swap the cards
+        Card temp = dk.at(index1);
+        dk.at(index1) = dk.at(index2);
+        dk.at(index2) = temp;
+    }
+}
+
+/// @brief Sort the deck of cards
+void Deck::sortDeck()
+{
+    vector<Card> temp;
+
+    // Selection Sort:
+    // go through the vector storing deck of cards
+    //  find the minimum card within the Deck (vector of Cards)
+    //  place the discovered minimum in the back of the temp vector
+    //  find the minimum card from the Deck (vector of Cards)
+    //  continue finding, adding, removing until no more cards
+    while(!dk.empty())
+    {
+        size_t indMin = findMinInDeck();
+        Card tempCard = dk.at(indMin);
+        temp.push_back(tempCard);
+        removeCard(indMin);
+    }
+
+    // update internal deck representation to the sorted vector
+    dk = temp;
+}

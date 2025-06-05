@@ -9,12 +9,13 @@
 #include <string>
 #include <vector>
 #include "card.h"
+#include "deck.h"
 
 using namespace std;
 
 void RandomnessExamples();
 void ClassesObjectsExamples();
-void Examples3(){}
+void DeckExamples();
 
 /// @brief main function for running our examples
 /// @param argc the number of command line arguments
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
                 break;
 
             case 3:
-                Examples3();
+                DeckExamples();
                 break;
             
             default:
@@ -52,12 +53,134 @@ int main(int argc, char *argv[])
         ClassesObjectsExamples();
         
         cout << endl << endl;  
-        Examples3();  
+        DeckExamples();  
         
     }    
     return 0;
 }
 
+
+
+
+/// @brief live code developed for the true randomness portion
+///     of the live lecture
+void RandomnessExamples()
+{
+    int x;
+
+    cout << "True Randomness Examples" << endl;
+    cout << "========================" << endl << endl;
+
+    // Before using rand() we always used the pseudo random number
+    // generator (PNRG) and specified a dedidcated seed with srand().
+    // If we did not invoke srand() it was seeded silently as srand(0)
+    cout << "Let's grab a random number between two numbers." << endl;
+    cout << "From 3 to 8, inclusive (3 + rand() % (8-3+1)): ";
+    cout << 3 + rand() % (8 - 3 + 1) << endl;
+    cout << endl;
+
+    // When we call srand() it restarts the pseudo random sequence
+    cout << "Calling srand(0)" << endl;
+    srand(0);
+    cout << "Let's grab a random number between two numbers." << endl;
+    cout << "From 3 to 8, inclusive (3 + rand() % (8-3+1)): ";
+    cout << 3 + rand() % (8 - 3 + 1) << endl;
+    cout << endl;
+
+    // Knowing the seed for srand creates predictability and potential
+    // security vulnerabilities in our programs. Many older methodologies
+    // teach srand(time(0)) to increase unpredictablility. This would use
+    // the time in seconds since Jan 1 1970 at the invocation of srand()
+    // to seed the pseduo random number generator. However, if someone knows
+    // this time they can predict your randomness and we fall back towards
+    // the issues such as security vulnerabilities. 
+
+    // Modern systems have built in devices to introduce entropy and 
+    // unpredictability in random number creation. This makes the items
+    // more truly random than the pseudo random number generator.
+    cout << "Creating a random_device rd" << endl;
+    random_device rd;
+
+    // Additionally we can create an engine to generate random numbers
+    // in a uniform distribution. 
+    // Here we designate a uniform distribution between 3 and 8, inclusive.
+    static uniform_int_distribution<int> eng(3, 8);
+    cout << "Creating uniform distribution engine from 3 to 8." 
+        << endl;
+
+    cout << "Generating a random number with our random device." << endl;
+    cout << "Random number from eng(rd) is " << eng(rd) << endl;
+    cout << "Random number from eng(rd) is " << eng(rd) << endl;
+    cout << "Random number from eng(rd) is " << eng(rd) << endl;
+    cout << "Random number from eng(rd) is " << eng(rd) << endl;
+    cout << "Random number from eng(rd) is " << eng(rd) << endl;
+    cout << "Random number from eng(rd) is " << eng(rd) << endl;
+    cout << "Random number from eng(rd) is " << eng(rd) << endl;
+    cout << "Random number from eng(rd) is " << eng(rd) << endl;
+    cout << "Random number from eng(rd) is " << eng(rd) << endl;
+    
+    cout << endl;
+
+
+    // When generating a lot of random numbers quickly, where quickness
+    // is relative to the systems ability to create them from its design
+    // for entropy, can actually block and wait for a random number
+    // on many systems.
+    cout << "Generating a million random numbers with eng(rd)" << endl;
+    for (int i=0; i < 1000000; ++i)
+    {
+        x = eng(rd);
+    }
+    cout << "Finished generating, the last number was: " << x << endl;
+    cout << endl;
+
+    cout << "Notice the slowdown?" << endl;
+    cout << endl;
+
+    vector<int> nums_rd(6);
+    cout << "Generating & counting a million numbers with eng(rd)" << endl;
+    for (int i=0; i < 1000000; ++i)
+    {
+        nums_rd.at(eng(rd)-3)++;
+    }
+    cout << "Finished generating. Here are the counts:" << endl;
+    for (int i=0; i < 6; ++i)
+    {
+        cout << "Number " << i+3 << ": " << nums_rd.at(i) << endl;
+    }
+    cout << endl;
+    
+    cout << "Notice the slowdown?" << endl;
+    cout << endl;
+
+
+    // A rudimentary fix is to use the random_device to generate the
+    // seed for srand and then use the pseudo random number generator
+    // to try to get the "best of both worlds" as rand() will not 
+    // will not have to wait for the random_device to generate it.
+    cout << "Seeding srand(rd()) using random_device number." << endl;
+    srand(rd());
+
+    cout << "Generating a million random numbers with rand()" << endl;
+    for (int i=0; i < 1000000; ++i)
+    {
+        x = 3 + rand()%(8-3+1);
+    }
+    cout << "Finished generating, the last number was: " << x << endl;
+    cout << endl;
+
+    vector<int> nums_rand(6);
+    cout << "Generating & counting a million numbers with rand()" << endl;
+    for (int i=0; i < 1000000; ++i)
+    {
+        nums_rand.at(3 + rand()%(8-3+1) - 3)++;
+    }
+    cout << "Finished generating. Here are the counts:" << endl;
+    for (int i=0; i < 6; ++i)
+    {
+        cout << "Number " << i+3 << ": " << nums_rand.at(i) << endl;
+    }
+}
 
 
 
@@ -191,113 +314,64 @@ void ClassesObjectsExamples()
 
 
 
-/// @brief live code developed for the true randomness portion
-///     of the live lecture
-void RandomnessExamples()
+void DeckExamples()
 {
-    int x;
+    vector<string> suits = {"Clubs", "Diamonds", "Hearts", "Spades"};
+    vector<string> faces = 
+        {"Ace", "Two", "Three", "Four", 
+         "Five", "Six", "Seven", "Eight", "Nine", 
+         "Ten", "Jack", "Queen", "King"};
 
-    cout << "True Randomness Examples" << endl;
-    cout << "========================" << endl << endl;
+    Deck playingCards;
+    Deck original;
 
-    // Before using rand() we always used the pseudo random number
-    // generator (PNRG) and specified a dedidcated seed with srand().
-    // If we did not invoke srand() it was seeded silently as srand(0)
-    cout << "Let's grab a random number between two numbers." << endl;
-    cout << "From 3 to 8, inclusive (3 + rand() % (8-3+1)): ";
-    cout << 3 + rand() % (8 - 3 + 1) << endl;
-    cout << endl;
-
-    // When we call srand() it restarts the pseudo random sequence
-    cout << "Calling srand(0)" << endl;
-    srand(0);
-    cout << "Let's grab a random number between two numbers." << endl;
-    cout << "From 3 to 8, inclusive (3 + rand() % (8-3+1)): ";
-    cout << 3 + rand() % (8 - 3 + 1) << endl;
-    cout << endl;
-
-    // Knowing the seed for srand creates predictability and potential
-    // security vulnerabilities in our programs. Many older methodologies
-    // teach srand(time(0)) to increase unpredictablility. This would use
-    // the time in seconds since Jan 1 1970 at the invocation of srand()
-    // to seed the pseduo random number generator. However, if someone knows
-    // this time they can predict your randomness and we fall back towards
-    // the issues such as security vulnerabilities. 
-
-    // Modern systems have built in devices to introduce entropy and 
-    // unpredictability in random number creation. This makes the items
-    // more truly random than the pseudo random number generator.
-    cout << "Creating a random_device rd" << endl;
-    random_device rd;
-
-    // Additionally we can create an engine to generate random numbers
-    // in a uniform distribution. 
-    // Here we designate a uniform distribution between 3 and 8, inclusive.
-    static uniform_int_distribution<int> eng(3, 8);
-    cout << "Creating uniform distribution engine from 3 to 8." 
-        << endl;
-
-    cout << "Generating a random number with our random device." << endl;
-    cout << "Random number from eng(rd) is " << eng(rd) << endl;
-    cout << "Random number from eng(rd) is " << eng(rd) << endl;
-    cout << "Random number from eng(rd) is " << eng(rd) << endl;
-    cout << "Random number from eng(rd) is " << eng(rd) << endl;
-    cout << "Random number from eng(rd) is " << eng(rd) << endl;
-    cout << "Random number from eng(rd) is " << eng(rd) << endl;
-    cout << "Random number from eng(rd) is " << eng(rd) << endl;
-    cout << "Random number from eng(rd) is " << eng(rd) << endl;
-    cout << "Random number from eng(rd) is " << eng(rd) << endl;
-    cout << endl;
-
-
-    // When generating a lot of random numbers quickly, where quickness
-    // is relative to the systems ability to create them from its design
-    // for entropy, can actually block and wait for a random number
-    // on many systems.
-    cout << "Generating a million random numbers with eng(rd)" << endl;
-    for (uint i=0; i < 10000000000000; ++i)
+    // Initialize Deck in sorted order
+    for(const auto &e : suits)
     {
-        x = eng(rd);
+        for(const auto& f : faces)
+        {
+            if("Clubs" == e || "Spades" == e)
+            {
+                original.addCardBottom(Card(f,e,false));
+                playingCards.addCardBottom(Card(f,e,false));
+            }
+            else
+            {
+                original.addCardBottom(Card(f,e,true));
+                playingCards.addCardBottom(Card(f,e,true));
+            }
+        }
     }
-    cout << "Finished generating, the last number was: " << x << endl;
-    cout << endl;
 
-cout << "Finished generating, the last number was: " << x << endl;
-    cout << endl;
+    // Print the Deck object
+    cout << "Original Deck Order" << endl;
+    cout << "===================" << endl;
+    playingCards.printDeck();
 
-    cout << "Notice the slowdown?" << endl;
-    cout << endl;
+    cout << endl << endl << endl;
 
-    vector<int> nums_rd(6);
-    cout << "Generating & counting a million numbers with eng(rd)" << endl;
-    for (int i=0; i < 1000000; ++i)
-    {
-        nums_rd.at(eng(rd)-3)++;
-    }
-    cout << "Finished generating. Here are the counts:" << endl;
-    for (int i=0; i < 6; ++i)
-    {
-        cout << "Number " << i+3 << ": " << nums_rd.at(i) << endl;
-    }
-    cout << endl;
-    
-    cout << "Notice the slowdown?" << endl;
-    cout << endl;
+    // Scramble
+    playingCards.scramble();
 
+    // Print the Deck object
+    cout << "Scrambled Deck Order" << endl;
+    cout << "====================" << endl;
+    playingCards.printDeck();
 
-    // A rudimentary fix is to use the random_device to generate the
-    // seed for srand and then use the pseudo random number generator
-    // to try to get the "best of both worlds" as rand() will not 
-    // will not have to wait for the random_device to generate it.
-    cout << "Seeding srand(rd()) using random_device number." << endl;
-    srand(rd());
-    cout << "Generating a million random numbers with rand()" << endl;
-    for (int i=0; i < 1000000; ++i)
-    {
-        x = 3 + rand()%(8-3+1);
-    }
-    cout << "Finished generating, the last number was: " << x << endl;
-    cout << endl;
+    cout << endl << endl << endl;
 
+    // sort the Deck object
+    playingCards.sortDeck();
+
+    // Print the Deck object
+    cout << "Sorted Deck Order" << endl;
+    cout << "=================" << endl;
+    playingCards.printDeck();
+
+    cout << endl << endl << endl;
+
+    // Verify that the decks are the same using the string conversions
+    if(original.to_string() == playingCards.to_string())
+        cout << "Sorted deck is the same as the original!" << endl;
 }
 
