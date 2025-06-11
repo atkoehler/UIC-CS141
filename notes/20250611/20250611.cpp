@@ -90,8 +90,9 @@ void LinkedListExamples()
     three->print();
     cout << endl << endl;
 
-    // A collection of pointers to Line objects
+    // creating a scope to invoke destructors before end of program
     {
+        // A collection of pointers to Line objects
         vector<Line *> allLines;
         allLines.push_back(new Line);
         allLines.push_back(two);
@@ -103,7 +104,6 @@ void LinkedListExamples()
         for (size_t i = 0; i < allLines.size(); ++i)
         {
             allLines.at(i)->print();
-            cout << endl;
         }
 
         cout << endl << endl;
@@ -117,18 +117,35 @@ void LinkedListExamples()
             cout << endl;
         }
 
+        cout << endl << endl;
+
         cout << "For-Each Loop Printing Backwards:" << endl;
         for (const auto &e : allLines)
         {
             e->print(true);
             cout << endl;
         }
-
-        // release all the memory for each line
-        cout << "Index-Based For Loop Deleting:" << endl;
-        for (size_t i = 0; i < allLines.size(); ++i)
-        {
-            delete allLines.at(i);
-        }
     }
+
+
+    // Invokes the copy constructor as the object doesn't 
+    // exist yet.
+    cout << "Copy Constructor Invocation" << endl;
+    cout << "===========================" << endl;
+    Line copy = one;
+    copy.print();
+    cout << endl << endl;
+
+
+    // Invokes the assignment operatoras the object already exists.
+    cout << "Assignment Operator (opeartor=) Invocation" << endl;
+    cout << "==========================================" << endl;
+    Line another;
+    another.joinLine(new Person("Perry"));
+    Line anotherTwo;
+    anotherTwo.joinLine(new Person("Perry"));
+    copy.print();
+    cout << endl << endl;
+
+
 }
