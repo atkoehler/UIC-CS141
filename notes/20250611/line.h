@@ -133,6 +133,8 @@ class Line
             }
 
             curSize = 0;
+            head = nullptr;
+            tail = nullptr;
         }
 
         /// @brief destructor for the Line object that is automatically
@@ -151,6 +153,9 @@ class Line
         Line(const Line &from)
         {
             Spot* cur = from.head;
+            curSize = 0;
+            head = nullptr;
+            tail = nullptr;
 
             // as we do not have push_back or add_back we need to add the end
             // of the from list first, which is easiest to do recursively.
@@ -164,6 +169,8 @@ class Line
         {
             // first clear out existing 
             clear();
+            head = nullptr;
+            tail = nullptr;
 
             // then copy over everything from rhs
             recursiveBuilder(rhs.head);
@@ -226,7 +233,6 @@ class Line
             }
 
             recursiveBuilder(cur->next);
-
             joinLine(new Person(cur->p->getName()));
         }
 };

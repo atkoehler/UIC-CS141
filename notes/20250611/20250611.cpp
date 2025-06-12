@@ -132,6 +132,10 @@ void LinkedListExamples()
     // exist yet.
     cout << "Copy Constructor Invocation" << endl;
     cout << "===========================" << endl;
+    cout << "copying the following list" << endl;
+    one.print();
+
+    cout << "copied list is: " << endl;
     Line copy = one;
     copy.print();
     cout << endl << endl;
@@ -143,9 +147,13 @@ void LinkedListExamples()
     Line another;
     another.joinLine(new Person("Perry"));
     Line anotherTwo;
-    anotherTwo.joinLine(new Person("Perry"));
-    copy.print();
+    anotherTwo.joinLine(new Person("Sam"));
+    cout << "List was: " << endl;
+    anotherTwo.print();
     cout << endl << endl;
-
+    anotherTwo = another;
+    cout << "List is now: " << endl;
+    anotherTwo.print();
+    cout << endl;
 
 }
