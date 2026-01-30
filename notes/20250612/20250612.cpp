@@ -1,7 +1,8 @@
 /// @file 20250612.cpp
 /// @author Adam T Koehler, PhD
 /// @date June 12, 2025
-/// @brief Code and lecture notes from the live session. 
+/// @brief Code and lecture notes from the live session. \
+///         Concepts covered: Sorting (built-in and user created objects)
 
 #include <algorithm>
 #include <iostream>
