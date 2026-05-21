@@ -1,10 +1,7 @@
 /// @file 20260520_LiveSession2.cpp
 /// @author Adam T Koehler, PhD
-/// @date May 21, 2024
+/// @date May 20, 2026
 /// @brief Code and lecture notes from the live session. Requires -std=c++20
-///     C++ Concepts: Monte Carlo Simulations, Estimated Probability
-///                   rand(), vectors, arrays, file input intro
-///                   function writing and function decomposition
 
 #include <iostream>
 #include <vector>
@@ -194,6 +191,7 @@ void acquireData(int quantity, vector<string> &data)
 /////////////////////////////////////////////////
 // C++23 Rewrite:
 //    Compile with g++ -std=c++23 20260520_LiveSession2.cpp -o program.out
+//      REQUIRES GCC14 for print/println
 //
 //  There are additional things we could do with C++23 to further streamline
 //  our code, but those items can add cognitive complexity to the code that
