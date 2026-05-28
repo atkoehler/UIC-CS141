@@ -3,7 +3,7 @@
 /// @date May 28, 2026
 /// @brief Code and lecture notes from the live session. Requires -std=c++20
 ///         Example compilation command: 
-///             g++ -std=c++20 20260527_LiveSession5.cpp utils.cpp 
+///             g++ -std=c++20 20260528_LiveSession6.cpp 
 
 #include <iostream>
 #include <string>
