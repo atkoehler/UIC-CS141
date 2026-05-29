@@ -547,7 +547,7 @@ int main(int argc, char *argv[])
 //          growing or shrinking aspect of a vector is unwarranted.
 //              array<int, 19> count{};  versus     vector<int> count(19);
 //          We demonstrated C-style legacy arrays versus modern C++ arrays.
-//          C-style arrays are pre for understand or writing C++11 code.
+//          C-style arrays are to understand or write pre-C++11 code.
 //////////////////////////////////////////////////////////////////////////////
 
 
