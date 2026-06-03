@@ -1,0 +1,32 @@
+learn@ $ TIMEFORMAT="%R"; for i in {1..10}; do { time ./a.out 2 1 < in.txt > /dev/null; } 2>&1; done | awk '{sum+=$1; m=in
+t($1/60); s=$1-(m*60); printf "Run %d: %dm %.3fs\n", NR, m, s} END {avg=sum/NR; am=int(avg/60); as=avg-(am*60); printf "--
+---\nAverage: %dm %.3fs\n", am, as}'
+Run 1: 1m 15.454s
+Run 2: 1m 17.198s
+Run 3: 1m 22.556s
+Run 4: 1m 32.753s
+Run 5: 1m 27.938s
+Run 6: 1m 25.577s
+Run 7: 1m 27.759s
+Run 8: 1m 19.734s
+Run 9: 1m 17.294s
+Run 10: 1m 25.581s
+-----
+Average: 1m 23.184s
+
+
+learn@ $ TIMEFORMAT="%R"; for i in {1..10}; do { time ./a.out 2 0 < in.txt > /dev/null; } 2>&1; done | awk '{sum+=$1; m=in
+t($1/60); s=$1-(m*60); printf "Run %d: %dm %.3fs\n", NR, m, s} END {avg=sum/NR; am=int(avg/60); as=avg-(am*60); printf "--
+---\nAverage: %dm %.3fs\n", am, as}'
+Run 1: 2m 37.673s
+Run 2: 2m 29.402s
+Run 3: 2m 25.860s
+Run 4: 2m 24.266s
+Run 5: 2m 24.961s
+Run 6: 2m 25.194s
+Run 7: 2m 31.755s
+Run 8: 2m 35.728s
+Run 9: 2m 31.006s
+Run 10: 2m 33.735s
+-----
+Average: 2m 29.958s
