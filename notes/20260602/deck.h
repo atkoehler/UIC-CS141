@@ -54,7 +54,7 @@ class Deck
         // that is at the top since we know it cannot be altered
         // Card peekAtTop() const;
 
-    // private:
+    private:
     //     Card drawTop();
     //     Card drawBotton();
     //     void addCardBottom(const Card &);

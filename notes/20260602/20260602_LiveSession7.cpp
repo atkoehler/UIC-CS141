@@ -1,4 +1,4 @@
-/// @file 20260528_LiveSession7.cpp
+/// @file 20260602_LiveSession7.cpp
 /// @author Adam T Koehler, PhD
 /// @date June 2, 2026
 /// @brief Code and lecture notes from the live session. Requires -std=c++20
