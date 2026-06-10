@@ -34,7 +34,7 @@ class Person
             age(a), eyeColor(""), hairColor(""), selfEsteem(10)
         {}
 
-        void print() const { cout << name << endl; }
+        void print() const { cout << name << ", " << age << endl; }
 
         /// @brief Determine whether a person is the same 
         ///         based on matching "stringify"
