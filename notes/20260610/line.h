@@ -90,6 +90,68 @@ class Line
         }
 
 
+/// @brief empty the line of all persons in the line
+        ///     This empties the linked list and frees dynamically allocated
+        ///     memory where appropriate.
+        void clear()
+        {
+            Spot* cur = head;
+
+            while(cur == nullptr)
+            {
+                Spot* temp = cur;
+                cur = cur->next;
+                delete temp->p;
+                delete temp;
+            }
+
+            curSize = 0;
+            head = nullptr;
+            tail = nullptr;
+        }
+
+        /// @brief destructor for the Line object that is automatically
+        ///     invoked when an object goes out of scope. We cannot manually 
+        ///     call the destructor but the logic is the same as clear() which
+        ///     is publicly available.
+        virtual ~Line()
+        { 
+            clear();
+        }
+        
+        /// @brief Copy constructor allows us to create an object 
+        ///         from another object during initial creation of an object
+        /// @param from the Line to perform a deep copy of and instantiate
+        ///         this object with
+        Line(const Line &from)
+        {
+            Spot* cur = from.head;
+            curSize = 0;
+            head = nullptr;
+            tail = nullptr;
+
+            // as we do not have push_back or add_back we need to add the end
+            // of the from list first, which is easiest to do recursively.
+            recursiveBuilder(cur);
+        }
+        
+        /// @brief assignment operator overload
+        /// @param rhs the right hand side of the assignment operator
+        /// @return The implicit obect
+        Line& operator=(const Line &rhs)
+        {
+            // first clear out existing 
+            clear();
+            head = nullptr;
+            tail = nullptr;
+
+            // then copy over everything from rhs
+            recursiveBuilder(rhs.head);
+
+            return *this;
+        }
+
+
         // -----------------------------------------------------------------
         //
         //    Basic items predefined for the 2026-06-10 Lecture.
