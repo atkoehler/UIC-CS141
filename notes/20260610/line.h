@@ -85,6 +85,8 @@ class Line
                 cur = cur->next;
                 curIndex++;
             }
+
+            return youngestIndex;
         }
 
 
