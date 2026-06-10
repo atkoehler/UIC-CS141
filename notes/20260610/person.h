@@ -55,6 +55,7 @@ class Person
         }
 
         string getName() const { return name; }
+        uint getAge() const { return age; }
         void setAge(uint age) { this->age = age; }
 
     protected:

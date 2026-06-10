@@ -182,6 +182,6 @@ class Line
             }
 
             recursiveBuilder(cur->next);
-            joinLine(new Person(cur->p->getName()));
+            joinLine(new Person(cur->p->getName(), cur->p->getAge()));
         }
 };
