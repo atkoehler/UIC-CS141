@@ -33,8 +33,8 @@ class Line
         // of nodes (Spots) in the list.
         size_t curSize;
 
-    public:
-     
+
+    public:     
         /// @brief Using the provided person pointer, 
         ///         add the person to the back of the line.
         ///         We have defined the back as the person closest to the 
@@ -69,14 +69,14 @@ class Line
             }
 
             Spot *cur = head;
-            int curIndex;
+            int curIndex = 0;
 
             Person *youngestPerson = cur->p;
             int youngestIndex = curIndex;
 
             while(cur != nullptr)
             {
-                if (cur->p < youngestPerson)
+                if (*cur->p < *youngestPerson)
                 {
                     youngestIndex = curIndex;
                     youngestPerson = cur->p;
@@ -89,8 +89,77 @@ class Line
             return youngestIndex;
         }
 
+        /// @brief determine the location of the youngest person in the line
+        /// @return the pointer to the Person that is the youngest
+        Person* findYoungestPerson()
+        {
+            if (head == nullptr)
+            {
+                return nullptr;
+            }
 
-/// @brief empty the line of all persons in the line
+            Spot *cur = head;
+            Person *youngestPerson = cur->p;
+
+            while(cur != nullptr)
+            {
+                if (*cur->p < *youngestPerson)
+                {
+                    youngestPerson = cur->p;
+                }
+
+                cur = cur->next;
+            }
+
+            return youngestPerson;
+        }
+
+        /// @brief Use Selection Sort algorithm to sort the line
+        void sortLine()
+        {
+            if (head == nullptr)
+            {
+                return;
+            }
+
+            Line *sorted = new Line;
+
+            // Move the youngest person from linked list to sorted one
+            // at a time until no more exist in "this" line.
+            while(head != nullptr)
+            {
+                // located the youngest person
+                int ind = findYoungest();
+                Person *youngest = findYoungestPerson();
+
+                // add youngest to the sorted line
+                sorted->joinLine(youngest);
+
+                // Decouple the youngest from the Linked List
+                if (ind == 0)
+                {
+                    head = head->next;
+                }
+                else
+                {
+                    Spot *before = head;
+                    for(int i = 0; i + 1 < ind; ++i)
+                    {
+                        before = before->next;
+                    }
+                    before->next = before->next->next;
+                }
+            }
+
+            // Update the internal states
+            // Since we never released memory we can just update
+            //  head and tail. The size should be the same.
+            head = sorted->head;
+            tail = sorted->tail;
+        }
+
+
+        /// @brief empty the line of all persons in the line
         ///     This empties the linked list and frees dynamically allocated
         ///     memory where appropriate.
         void clear()
@@ -208,7 +277,7 @@ class Line
             }
             else
             {
-                front = "Front: " + head->p->getName();
+                front = "Front: " + this->front()->getName();
             }
 
             // Output note to note the front of the list
@@ -247,7 +316,7 @@ class Line
             printRecursive(cur->next);
 
             // interact / process / do something
-            cout << cur->p->getName();
+            cur->p->print();
 
             // when not head print the link
             if (cur != head)
@@ -263,7 +332,7 @@ class Line
 
             while (cur != nullptr)
             {
-                cout << cur->p->getName();
+                cur->p->print();
                 if (cur->next != nullptr)
                 {
                     cout << "  <-  ";
