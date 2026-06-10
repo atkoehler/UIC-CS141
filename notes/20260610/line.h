@@ -42,10 +42,50 @@ class Line
         /// @param p the pointer to the person to add to the line
         void joinLine(Person *p)
         {
+            Spot* toAdd = new Spot;
+            toAdd->p = p;
+            toAdd->next = head;
 
+            // empty list? update tail
+            if (tail == nullptr)
+            {
+                tail = toAdd;
+            }
+
+            head = toAdd;
+            curSize++;
         }
 
 
+        /// @brief determine the location of the youngest person in the line
+        /// @return -1 when the line is empty, otherwise the location of the
+        ///         youngest person where 0 is the back of the line which
+        ///         is closest to the head of the linked list
+        int findYoungest()
+        {
+            if (head == nullptr)
+            {
+                return -1;
+            }
+
+            Spot *cur = head;
+            int curIndex;
+
+            Person *youngestPerson = cur->p;
+            int youngestIndex = curIndex;
+
+            while(cur != nullptr)
+            {
+                if (cur->p < youngestPerson)
+                {
+                    youngestIndex = curIndex;
+                    youngestPerson = cur->p;
+                }
+
+                cur = cur->next;
+                curIndex++;
+            }
+        }
 
 
         // -----------------------------------------------------------------
